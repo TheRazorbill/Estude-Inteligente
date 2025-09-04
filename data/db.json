@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "technique": "Trabalho Focado (Deep Work)",
+    "summary": "É a capacidade de se concentrar sem distrações em uma tarefa cognitivamente exigente. Permite produzir resultados de alta qualidade em menos tempo.",
+    "difficulty": "Alta",
+    "benefits": [
+      "Aumento da produtividade",
+      "Melhoria na qualidade do trabalho",
+      "Desenvolvimento de habilidades profundas"
+    ],
+    "examples": [
+      "Escrever um artigo acadêmico sem interrupções",
+      "Programar um sistema complexo",
+      "Estudar para concursos"
+    ],
+    "how_to": [
+      "Escolha uma tarefa importante.",
+      "Defina um período de tempo específico (ex: 90 minutos) sem interrupções.",
+      "Elimine TODAS as distrações: celular no modo avião, feche abas desnecessárias, avise as pessoas para não te interromperem.",
+      "Faça pausas programadas para descansar o cérebro."
+    ],
+    "recommended_tools": [
+      "Forest App",
+      "Cold Turkey Blocker",
+      "Notion ou Obsidian para anotações"
+    ]
+  },
+  {
+    "id": 2,
+    "technique": "Prática Ativa (Active Recall)",
+    "summary": "É o ato de tentar recuperar uma informação da memória, em vez de apenas revisá-la passivamente (lendo ou assistindo). Fortalece as conexões neurais e a retenção.",
+    "difficulty": "Média",
+    "benefits": [
+      "Aumenta a retenção de longo prazo",
+      "Fortalece conexões neurais",
+      "Melhora a compreensão do conteúdo"
+    ],
+    "examples": [
+      "Responder questões de provas anteriores",
+      "Explicar conteúdos em voz alta",
+      "Usar flashcards para revisar conceitos"
+    ],
+    "how_to": [
+      "Após estudar um tópico, feche o livro e tente explicar o conceito com suas próprias palavras.",
+      "Use flashcards para se testar.",
+      "Tente resolver problemas ou projetos práticos sem olhar a resposta primeiro.",
+      "Ensine o que você aprendeu para outra pessoa."
+    ],
+    "recommended_tools": [
+      "Anki",
+      "Quizlet",
+      "Caderno físico de perguntas e respostas"
+    ]
+  },
+  {
+    "id": 3,
+    "technique": "Técnica Pomodoro",
+    "summary": "Um método de gerenciamento de tempo que usa um cronômetro para dividir o trabalho em intervalos, tradicionalmente de 25 minutos, separados por pequenas pausas.",
+    "difficulty": "Baixa",
+    "benefits": [
+      "Reduz a procrastinação",
+      "Aumenta a disciplina",
+      "Promove descanso equilibrado"
+    ],
+    "examples": [
+      "Estudar matemática em blocos de 25 minutos",
+      "Escrever relatórios no trabalho",
+      "Revisar conteúdos de forma distribuída"
+    ],
+    "how_to": [
+      "Escolha uma tarefa para ser feita.",
+      "Ajuste o cronômetro para 25 minutos.",
+      "Trabalhe na tarefa até o alarme tocar.",
+      "Faça uma pausa curta (5 minutos).",
+      "A cada quatro 'pomodoros', faça uma pausa mais longa (15-30 minutos)."
+    ],
+    "recommended_tools": [
+      "Focus To-Do",
+      "Pomofocus (site)",
+      "Timer físico"
+    ]
+  },
+  {
+    "id": 4,
+    "technique": "Técnica Feynman",
+    "summary": "Um método para aprender qualquer coisa explicando-a em termos simples, como se você estivesse ensinando a uma criança. Expõe falhas no seu entendimento.",
+    "difficulty": "Média",
+    "benefits": [
+      "Melhora a compreensão real do conteúdo",
+      "Identifica lacunas de aprendizado",
+      "Facilita a memorização"
+    ],
+    "examples": [
+      "Explicar física quântica em linguagem simples",
+      "Ensinar um conceito de programação a um iniciante",
+      "Revisar conteúdos para provas orais"
+    ],
+    "how_to": [
+      "Escolha um conceito que você quer aprender.",
+      "Escreva uma explicação sobre ele em uma folha de papel, usando a linguagem mais simples possível.",
+      "Identifique as áreas onde você travou ou usou jargões complicados. Isso indica que você ainda não entendeu bem.",
+      "Volte ao material de estudo para preencher essas lacunas e simplifique sua explicação."
+    ],
+    "recommended_tools": [
+      "Quadro branco",
+      "Mapas mentais",
+      "Gravação em áudio/vídeo da sua explicação"
+    ]
+  },
+  {
+    "id": 5,
+    "technique": "Mapas Mentais",
+    "summary": "Organização visual das informações em forma de árvore, conectando ideias de forma não-linear. Ajuda na memorização e na compreensão de tópicos complexos.",
+    "difficulty": "Baixa",
+    "benefits": [
+      "Melhora a organização das ideias",
+      "Facilita a memorização visual",
+      "Ajuda na criatividade"
+    ],
+    "examples": [
+      "Criar um mapa mental de uma disciplina inteira",
+      "Planejar um projeto com ramificações de tarefas",
+      "Resumir um livro em diagramas visuais"
+    ],
+    "how_to": [
+      "Coloque o tema principal no centro da folha.",
+      "Adicione ramificações para cada subtema.",
+      "Use cores, imagens e símbolos para enriquecer.",
+      "Revise e reorganize conforme aprende mais."
+    ],
+    "recommended_tools": [
+      "XMind",
+      "MindMeister",
+      "Caderno físico com canetas coloridas"
+    ]
+  },
+  {
+    "id": 6,
+    "technique": "Repetição Espaçada (Spaced Repetition)",
+    "summary": "Técnica de revisão em intervalos progressivos que ajuda a transferir informações da memória de curto prazo para a de longo prazo.",
+    "difficulty": "Média",
+    "benefits": [
+      "Maximiza a retenção de informações",
+      "Reduz o esquecimento",
+      "Otimiza o tempo de estudo"
+    ],
+    "examples": [
+      "Revisar vocabulário de línguas estrangeiras",
+      "Estudar fórmulas matemáticas",
+      "Memorizar datas históricas"
+    ],
+    "how_to": [
+      "Revise o conteúdo no mesmo dia em que aprendeu.",
+      "Revise novamente após 1 dia, 3 dias, 7 dias, 15 dias, etc.",
+      "Use softwares que calculam automaticamente os intervalos.",
+      "Evite revisões passivas, combine com prática ativa."
+    ],
+    "recommended_tools": [
+      "Anki",
+      "RemNote",
+      "SuperMemo"
+    ]
+  }
+]
