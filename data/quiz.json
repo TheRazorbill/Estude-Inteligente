@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "texto": "Você aprende melhor quando vê imagens ou quando escuta explicações?",
+    "opcoes": [
+      { "resposta": "Imagens", "tipo": "visual" },
+      { "resposta": "Explicações", "tipo": "auditivo" }
+    ]
+  },
+  {
+    "id": 2,
+    "texto": "Quando você precisa entender um conteúdo novo, prefere:",
+    "opcoes": [
+      { "resposta": "Fazer exercícios práticos", "tipo": "pratico" },
+      { "resposta": "Organizar resumos ou cronogramas", "tipo": "organizacional" }
+    ]
+  },
+  {
+    "id": 3,
+    "texto": "Se alguém te ensina algo difícil, o que ajuda mais?",
+    "opcoes": [
+      { "resposta": "Ver diagramas, esquemas ou mapas", "tipo": "visual" },
+      { "resposta": "Conversar sobre o assunto e tirar dúvidas", "tipo": "auditivo" }
+    ]
+  },
+  {
+    "id": 4,
+    "texto": "Durante os estudos, você se sente mais confortável:",
+    "opcoes": [
+      { "resposta": "Seguindo métodos de tempo e organização (cronômetros, agendas...)", "tipo": "organizacional" },
+      { "resposta": "Explorando livremente, testando e experimentando", "tipo": "pratico" }
+    ]
+  },
+  {
+    "id": 5,
+    "texto": "Quando precisa memorizar algo importante, você prefere:",
+    "opcoes": [
+      { "resposta": "Criar histórias ou analogias", "tipo": "auditivo" },
+      { "resposta": "Fazer resumos visuais e coloridos", "tipo": "visual" }
+    ]
+  },
+  {
+    "id": 6,
+    "texto": "Em um grupo de estudo, você normalmente:",
+    "opcoes": [
+      { "resposta": "Aprende mais explicando para os outros", "tipo": "auditivo" },
+      { "resposta": "Aprende mais resolvendo problemas junto com o grupo", "tipo": "pratico" }
+    ]
+  }
+]

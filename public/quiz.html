@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz em JavaScript</title>
+    <link rel="stylesheet" href="quizStyle.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz">
+            <h1>Quiz de Conhecimento</h1>
+            <div class="voltar"><a href="../index.html"><button>Voltar</button></a></div>
+            <div class="pergunta-container">
+                <h2 id="pergunta">Pergunta aqui</h2>
+                <ul>
+                    <li><button class="botao-resposta">Resposta 1</button></li>
+                    <li><button class="botao-resposta">Resposta 2</button></li>
+                    <li><button class="botao-resposta">Resposta 3</button></li>
+                    <li><button class="botao-resposta">Resposta 4</button></li>
+                    <li><button class="botao-resposta">Resposta 5</button></li>
+                    <li><button class="botao-resposta">Resposta 6</button></li>
+                </ul>
+            </div>
+            <button id="next" class="botao" style="display: none;">Próxima Pergunta</button>
+            <div id="resultado" style="display: none;">
+                <h2>Seu resultado: <span id="pontuacao"></span></h2>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
