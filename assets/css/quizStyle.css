@@ -29,17 +29,13 @@ h1 {
 .option-item {
   margin-bottom: 8px;
 }
-.checkbox-label {
+.radio-label {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
-.checkbox {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #777;
+.radio-label input[type="radio"] {
   margin-right: 10px;
-  background-color: #fff;
 }
 .instructions,
 .results-section {
