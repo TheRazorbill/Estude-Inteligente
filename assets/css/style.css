@@ -82,7 +82,6 @@ footer {
     margin-top: 2rem;
 }
 
-/* Estilos para a seção de busca de livros */
 .book-search-container {
     display: flex;
     gap: 0.5rem;

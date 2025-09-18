@@ -37,7 +37,6 @@ document.getElementById('quiz-form').addEventListener('submit', function(event) 
             document.getElementById('result').innerHTML = resultText;
         });
 
-// Lógica para consumir a Open Library API
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('book-search-input');
     const searchButton = document.getElementById('book-search-button');
