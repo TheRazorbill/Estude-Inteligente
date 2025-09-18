@@ -89,55 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ul.appendChild(li);
         });
         
-        document.addEventListener('DOMContentLoaded', () => {
-            const aiTextInput = document.getElementById('ai-text-input');
-            const aiAnalyzeButton = document.getElementById('ai-analyze-button');
-            const aiAnalysisResults = document.getElementById('ai-analysis-results');
-        
-            // Substitua 'YOUR_HUGGING_FACE_API_TOKEN' pelo seu token real da Hugging Face API
-            const HUGGING_FACE_API_TOKEN = 'YOUR_HUGGING_FACE_API_TOKEN';
-            const HUGGING_FACE_API_URL = 'https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english'; // Exemplo de modelo de análise de sentimento
-        
-            if (aiAnalyzeButton && aiTextInput && aiAnalysisResults) {
-                aiAnalyzeButton.addEventListener('click', async () => {
-                    const text = aiTextInput.value;
-                    if (text) {
-                        aiAnalysisResults.innerHTML = 'Analisando...';
-                        try {
-                            const response = await fetch(
-                                HUGGING_FACE_API_URL,
-                                {
-                                    headers: { Authorization: `Bearer ${HUGGING_FACE_API_TOKEN}` },
-                                    method: 'POST',
-                                    body: JSON.stringify({ inputs: text }),
-                                }
-                            );
-                            const result = await response.json();
-                            displayAiAnalysisResults(result);
-                        } catch (error) {
-                            console.error('Erro ao analisar texto com IA:', error);
-                            aiAnalysisResults.innerHTML = 'Erro ao analisar texto. Verifique seu token de API e tente novamente.';
-                        }
-                    }
-                });
-            }
-        
-            function displayAiAnalysisResults(results) {
-                aiAnalysisResults.innerHTML = '';
-                if (!results || results.length === 0) {
-                    aiAnalysisResults.innerHTML = '<p>Nenhum resultado de análise.</p>';
-                    return;
-                }
-        
-                const ul = document.createElement('ul');
-                results[0].forEach(item => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<span>${item.label}:</span> ${(item.score * 100).toFixed(2)}%`;
-                    ul.appendChild(li);
-                });
-                aiAnalysisResults.appendChild(ul);
-            }
-        });
         searchResults.appendChild(ul);
     }
 });
