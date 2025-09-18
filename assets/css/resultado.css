@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #f4f6f9;
+  background-color: #f5f6fa;
   color: #333;
   line-height: 1.6;
   padding: 1rem;
@@ -19,7 +19,7 @@ body {
 }
 
 .voltar button {
-    background: #4CAF50;
+    background-color: #4d2652;
     border: none;
     padding: 0.7rem 1.2rem;
     color: white;
@@ -30,7 +30,7 @@ body {
 }
 
 .voltar button:hover {
-    background: #45a049;
+    background-color: #6a386e;
 }
 
 .container {
@@ -54,7 +54,7 @@ body {
 
 .technique h2 {
     margin-bottom: 0.8rem;
-    color: #4CAF50;
+    color: #4d2652;
 }
 
 .summary {
