@@ -8,29 +8,33 @@ body {
   font-family: 'Roboto', sans-serif;
   background-color: #f5f6fa;
   color: #333;
-  line-height: 1.6;
-  padding: 1rem;
+  line-height: 1.7; /* Aumenta a altura da linha */
+  padding: 1.5rem; /* Aumenta o padding geral */
+  font-size: 16px;
 }
 
 .voltar {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem; /* Aumenta a margem inferior */
+    justify-content: center; /* Centraliza os botões */
 }
 
 .voltar button {
     background-color: #4d2652;
     border: none;
-    padding: 0.7rem 1.2rem;
+    padding: 0.8rem 1.5rem; /* Ajusta o padding */
     color: white;
-    font-weight: bold;
+    font-weight: 500; /* Peso da fonte mais leve */
     border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
 }
 
 .voltar button:hover {
     background-color: #6a386e;
+    transform: translateY(-1px);
 }
 
 .container {
@@ -40,32 +44,38 @@ body {
 
 .container h1 {
     text-align: center;
-    margin-bottom: 2rem;
-    color: #222;
+    margin-bottom: 2.5rem; /* Aumenta a margem inferior */
+    color: #4d2652; /* Usa a cor primária */
+    font-size: 2.2rem; /* Aumenta o tamanho da fonte */
+    font-weight: 700;
 }
 
 .technique {
     background: white;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 2rem; /* Aumenta o padding */
+    margin-bottom: 2.5rem; /* Aumenta a margem inferior */
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra mais suave e profissional */
 }
 
 .technique h2 {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem; /* Ajusta a margem */
     color: #4d2652;
+    font-size: 1.8rem; /* Aumenta o tamanho da fonte */
+    font-weight: 600;
 }
 
 .summary {
     font-style: italic;
     color: #555;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem; /* Ajusta a margem */
+    font-size: 1.05rem;
 }
 
 .difficulty {
-    font-weight: bold;
-    margin-bottom: 1rem;
+    font-weight: 600; /* Peso da fonte mais forte */
+    margin-bottom: 1.2rem; /* Ajusta a margem */
+    font-size: 1rem;
 }
 
 .difficulty span {
@@ -73,25 +83,69 @@ body {
 }
 
 .categories {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    margin-top: 1.5rem; /* Ajusta a margem */
+    font-size: 0.95rem; /* Aumenta um pouco a fonte */
     color: #444;
 }
 
 .label {
     display: inline-block;
-    background: #eee;
+    background-color: #e0e0e0; /* Fundo mais suave */
     color: #333;
     font-size: 0.85rem;
-    margin: 0 0.3rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 12px;
+    margin: 0 0.4rem 0.4rem 0; /* Ajusta margem para melhor espaçamento */
+    padding: 0.4rem 0.8rem; /* Aumenta o padding */
+    border-radius: 15px; /* Borda mais arredondada */
+    font-weight: 500;
 }
 
 .technique ul {
-    margin: 0.5rem 0 1rem 1.2rem;
+    margin: 0.8rem 0 1.5rem 1.5rem; /* Ajusta margens */
+    list-style: disc; /* Garante que a lista tenha marcadores */
 }
 
 .technique ul li {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem; /* Ajusta a margem */
+}
+
+/* Responsividade básica para resultado.css */
+@media (max-width: 768px) {
+    .voltar {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .voltar button {
+        width: 100%;
+    }
+
+    .container h1 {
+        font-size: 1.8rem;
+    }
+
+    .technique {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .technique h2 {
+        font-size: 1.5rem;
+    }
+
+    .summary {
+        font-size: 1rem;
+    }
+
+    .difficulty {
+        font-size: 0.95rem;
+    }
+
+    .categories {
+        font-size: 0.9rem;
+    }
+
+    .label {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
 }

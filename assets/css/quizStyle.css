@@ -8,54 +8,61 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f5f6fa;
     color: #333;
-    line-height: 1.6;
-    padding: 1rem;
+    line-height: 1.7; /* Aumenta a altura da linha */
+    padding: 1.5rem; /* Aumenta o padding geral */
+    font-size: 16px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+    margin-bottom: 2rem; /* Aumenta a margem inferior */
+    color: #4d2652; /* Usa a cor primária */
+    font-size: 2.2rem; /* Aumenta o tamanho da fonte */
+    font-weight: 700; /* Torna o título mais impactante */
 }
 
 .voltar {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem; /* Aumenta a margem inferior */
     text-align: center;
 }
 
 .voltar a {
     text-decoration: none;
-    background: #4CAF50;
+    background-color: #4d2652; /* Usa a cor primária */
     color: white;
-    padding: 0.6rem 1rem;
+    padding: 0.7rem 1.2rem; /* Ajusta o padding */
     border-radius: 6px;
-    font-weight: bold;
-    transition: background 0.3s;
+    font-weight: 500; /* Peso da fonte mais leve */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .voltar a:hover {
-    background: #45a049;
+    background-color: #6a386e; /* Cor de hover consistente */
+    transform: translateY(-1px);
 }
 
 .instructions {
-    background: #ecf0f1;
-    padding: 1rem;
-    border-left: 5px solid #4d2652;
-    border-radius: 6px;
-    margin-bottom: 2rem;
+    background-color: #eef2f7; /* Fundo mais suave */
+    padding: 1.5rem; /* Aumenta o padding */
+    border-left: 6px solid #4d2652; /* Borda mais grossa */
+    border-radius: 8px; /* Borda mais arredondada */
+    margin-bottom: 2.5rem; /* Aumenta a margem inferior */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .question-block {
     background: white;
-    padding: 1.2rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 1.8rem; /* Aumenta o padding */
+    margin-bottom: 2rem; /* Aumenta a margem inferior */
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra mais suave e profissional */
 }
 
 .question {
-    font-weight: bold;
-    margin-bottom: 0.8rem;
+    font-weight: 600; /* Peso da fonte mais forte */
+    margin-bottom: 1.2rem; /* Aumenta a margem inferior */
+    font-size: 1.15rem; /* Aumenta o tamanho da fonte */
+    color: #4d2652; /* Usa a cor primária */
 }
 
 .options {
@@ -63,17 +70,17 @@ h1 {
 }
 
 .option-item {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem; /* Aumenta a margem inferior */
 }
 
 .radio-label {
     display: block;
-    background: #f9f9f9;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    padding: 0.6rem;
+    background-color: #f9f9f9;
+    border: 2px solid #e0e0e0; /* Borda mais suave */
+    border-radius: 8px; /* Borda mais arredondada */
+    padding: 0.8rem; /* Aumenta o padding */
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 .radio-label input {
@@ -90,39 +97,83 @@ h1 {
 
 button[type="submit"] {
     display: block;
-    margin: 1rem auto;
-    padding: 0.8rem 1.5rem;
+    margin: 2rem auto; /* Aumenta a margem */
+    padding: 1rem 2rem; /* Aumenta o padding */
     border: none;
-    border-radius: 6px;
+    border-radius: 8px; /* Borda mais arredondada */
     background-color: #4d2652;
     color: white;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: 1.1rem; /* Aumenta o tamanho da fonte */
+    font-weight: 600; /* Peso da fonte mais forte */
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(77, 38, 82, 0.2); /* Sombra para o botão */
 }
 
 button[type="submit"]:hover {
     background-color: #6a386e;
+    transform: translateY(-2px); /* Efeito de elevação */
 }
 
 .results-section {
-    margin-top: 2rem;
-    padding: 1.5rem;
+    margin-top: 3rem; /* Aumenta a margem superior */
+    padding: 2rem; /* Aumenta o padding */
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Sombra mais suave e profissional */
 }
 
 .result-type {
-    margin-top: 1rem;
-    padding: 1rem;
-    border-left: 4px solid #4d2652;
-    background: #f9f9f9;
-    border-radius: 6px;
+    margin-top: 1.5rem; /* Aumenta a margem superior */
+    padding: 1.2rem; /* Aumenta o padding */
+    border-left: 5px solid #4d2652; /* Borda mais grossa */
+    background-color: #f9f9f9;
+    border-radius: 8px; /* Borda mais arredondada */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil */
 }
 
 .resultado {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 2.5rem; /* Aumenta a margem superior */
+}
+
+/* Responsividade básica para quizStyle.css */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .instructions {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .question-block {
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .question {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .radio-label {
+        padding: 0.6rem;
+    }
+
+    button[type="submit"] {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .results-section {
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .result-type {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
 }
