@@ -1,14 +1,15 @@
 :root {
-    --primary-color: #4d2652;
-    --secondary-color: #6a386e;
-    --text-color: #333;
-    --light-text-color: #555;
-    --background-color: #f5f6fa;
-    --card-background: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow-light: rgba(0, 0, 0, 0.05);
-    --shadow-medium: rgba(0, 0, 0, 0.1);
-    --shadow-strong: rgba(0, 0, 0, 0.15);
+    --primary-color: #6A0572; /* Roxo profundo e vibrante */
+    --secondary-color: #8E299C; /* Roxo ligeiramente mais claro para hover/ênfase */
+    --accent-color: #FFD700; /* Amarelo dourado para detalhes e destaques */
+    --text-color: #2C3E50; /* Azul marinho escuro para texto principal */
+    --light-text-color: #7F8C8D; /* Cinza médio para texto secundário */
+    --background-color: #F8F9FA; /* Branco acinzentado muito claro para o fundo */
+    --card-background: #FFFFFF; /* Branco puro para cards */
+    --border-color: #E0E0E0; /* Cinza claro para bordas */
+    --shadow-light: rgba(0, 0, 0, 0.04);
+    --shadow-medium: rgba(0, 0, 0, 0.08);
+    --shadow-strong: rgba(0, 0, 0, 0.12);
     --font-family: 'Roboto', sans-serif;
 }
 
@@ -22,7 +23,7 @@ body {
     font-family: var(--font-family);
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.7;
+    line-height: 1.6; /* Ajuste para melhor legibilidade */
     padding: 1.5rem;
     font-size: 16px;
 }
@@ -37,18 +38,20 @@ body {
 .voltar button {
     background-color: var(--primary-color);
     border: none;
-    padding: 0.8rem 1.5rem;
+    padding: 0.9rem 1.8rem; /* Ajuste de padding */
     color: white;
-    font-weight: 500;
-    border-radius: 6px;
+    font-weight: 600; /* Peso da fonte mais forte */
+    border-radius: 8px; /* Borda mais arredondada */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 2px 8px var(--shadow-medium);
+    box-shadow: 0 4px 10px var(--shadow-medium); /* Sombra mais pronunciada */
+    letter-spacing: 0.5px;
 }
 
 .voltar button:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-1px);
+    transform: translateY(-2px); /* Efeito de elevação mais pronunciado */
+    box-shadow: 0 6px 12px var(--shadow-medium); /* Sombra no hover */
 }
 
 .container {
@@ -58,42 +61,45 @@ body {
 
 .container h1 {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem; /* Aumentar margem inferior */
     color: var(--primary-color);
-    font-size: 2.2rem;
+    font-size: 2.5rem; /* Aumentar tamanho da fonte */
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .technique {
     background: var(--card-background);
-    padding: 2rem;
-    margin-bottom: 2.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-medium);
+    padding: 2.5rem; /* Aumentar padding */
+    margin-bottom: 3rem; /* Aumentar margem inferior */
+    border-radius: 12px; /* Borda mais arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra mais pronunciada */
 }
 
 .technique h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     color: var(--primary-color);
-    font-size: 1.8rem;
+    font-size: 2rem; /* Aumentar tamanho da fonte */
     font-weight: 600;
+    letter-spacing: -0.3px;
 }
 
 .summary {
     font-style: italic;
     color: var(--light-text-color);
-    margin-bottom: 0.8rem;
-    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem; /* Aumentar tamanho da fonte */
 }
 
 .difficulty {
     font-weight: 600;
-    margin-bottom: 1.2rem;
-    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem; /* Ajustar tamanho da fonte */
 }
 
 .difficulty span {
-    color: #e67e22;
+    color: var(--accent-color); /* Usar accent-color */
+    font-weight: 700;
 }
 
 .categories {
@@ -106,20 +112,21 @@ body {
     display: inline-block;
     background-color: var(--border-color);
     color: var(--text-color);
-    font-size: 0.85rem;
-    margin: 0 0.4rem 0.4rem 0;
-    padding: 0.4rem 0.8rem;
-    border-radius: 15px;
+    font-size: 0.8rem; /* Ajustar tamanho da fonte */
+    margin: 0 0.5rem 0.5rem 0; /* Ajustar margens */
+    padding: 0.5rem 1rem; /* Ajustar padding */
+    border-radius: 20px; /* Mais arredondado */
     font-weight: 500;
+    letter-spacing: 0.2px;
 }
 
 .technique ul {
-    margin: 0.8rem 0 1.5rem 1.5rem;
+    margin: 1rem 0 1.8rem 1.8rem; /* Ajustar margens */
     list-style: disc;
 }
 
 .technique ul li {
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
 }
 
 @media (max-width: 768px) {

@@ -1,14 +1,15 @@
 :root {
-    --primary-color: #4d2652;
-    --secondary-color: #6a386e;
-    --text-color: #333;
-    --light-text-color: #555;
-    --background-color: #f5f6fa;
-    --card-background: #ffffff;
-    --border-color: #e0e0e0;
-    --shadow-light: rgba(0, 0, 0, 0.05);
-    --shadow-medium: rgba(0, 0, 0, 0.1);
-    --shadow-strong: rgba(0, 0, 0, 0.15);
+    --primary-color: #6A0572; /* Roxo profundo e vibrante */
+    --secondary-color: #8E299C; /* Roxo ligeiramente mais claro para hover/ênfase */
+    --accent-color: #FFD700; /* Amarelo dourado para detalhes e destaques */
+    --text-color: #2C3E50; /* Azul marinho escuro para texto principal */
+    --light-text-color: #7F8C8D; /* Cinza médio para texto secundário */
+    --background-color: #F8F9FA; /* Branco acinzentado muito claro para o fundo */
+    --card-background: #FFFFFF; /* Branco puro para cards */
+    --border-color: #E0E0E0; /* Cinza claro para bordas */
+    --shadow-light: rgba(0, 0, 0, 0.04);
+    --shadow-medium: rgba(0, 0, 0, 0.08);
+    --shadow-strong: rgba(0, 0, 0, 0.12);
     --font-family: 'Roboto', sans-serif;
 }
 
@@ -22,7 +23,7 @@ body {
     font-family: var(--font-family);
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.7;
+    line-height: 1.6; /* Ajuste para melhor legibilidade */
     padding: 1.5rem;
     font-size: 16px;
 }
@@ -31,8 +32,9 @@ h1 {
     text-align: center;
     margin-bottom: 2rem;
     color: var(--primary-color);
-    font-size: 2.2rem;
+    font-size: 2.5rem; /* Aumentar tamanho da fonte */
     font-weight: 700;
+    letter-spacing: -0.5px; /* Ajuste de espaçamento */
 }
 
 .voltar {
@@ -44,38 +46,40 @@ h1 {
     text-decoration: none;
     background-color: var(--primary-color);
     color: white;
-    padding: 0.7rem 1.2rem;
-    border-radius: 6px;
-    font-weight: 500;
+    padding: 0.8rem 1.5rem; /* Ajuste de padding */
+    border-radius: 8px; /* Borda mais arredondada */
+    font-weight: 600; /* Peso da fonte mais forte */
     transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px var(--shadow-medium); /* Adicionar sombra */
 }
 
 .voltar a:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-1px);
+    transform: translateY(-2px); /* Efeito de elevação mais pronunciado */
+    box-shadow: 0 6px 12px var(--shadow-medium); /* Sombra no hover */
 }
 
 .instructions {
-    background-color: #eef2f7;
-    padding: 1.5rem;
+    background-color: #eef2f7; /* Manter cor de fundo clara */
+    padding: 1.8rem; /* Ajuste de padding */
     border-left: 6px solid var(--primary-color);
-    border-radius: 8px;
+    border-radius: 10px; /* Borda mais arredondada */
     margin-bottom: 2.5rem;
-    box-shadow: 0 2px 8px var(--shadow-light);
+    box-shadow: 0 4px 12px var(--shadow-light); /* Sombra mais suave */
 }
 
 .question-block {
     background: var(--card-background);
-    padding: 1.8rem;
-    margin-bottom: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-medium);
+    padding: 2rem; /* Aumentar padding */
+    margin-bottom: 2.5rem; /* Aumentar margem inferior */
+    border-radius: 12px; /* Borda mais arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra mais pronunciada */
 }
 
 .question {
     font-weight: 600;
-    margin-bottom: 1.2rem;
-    font-size: 1.15rem;
+    margin-bottom: 1.5rem; /* Aumentar margem inferior */
+    font-size: 1.25rem; /* Aumentar tamanho da fonte */
     color: var(--primary-color);
 }
 
@@ -89,12 +93,13 @@ h1 {
 
 .radio-label {
     display: block;
-    background-color: #f9f9f9;
+    background-color: var(--card-background); /* Usar card-background */
     border: 2px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0.8rem;
+    border-radius: 10px; /* Borda mais arredondada */
+    padding: 1rem; /* Aumentar padding */
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow-light); /* Adicionar sombra */
 }
 
 .radio-label input {
@@ -106,48 +111,51 @@ h1 {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
+    box-shadow: 0 4px 10px rgba(106, 5, 114, 0.2); /* Sombra no checked */
 }
 
 button[type="submit"] {
     display: block;
     margin: 2rem auto;
-    padding: 1rem 2rem;
+    padding: 1.1rem 2.2rem; /* Ajuste de padding */
     border: none;
-    border-radius: 8px;
+    border-radius: 10px; /* Borda mais arredondada */
     background-color: var(--primary-color);
     color: white;
-    font-size: 1.1rem;
+    font-size: 1.15rem; /* Aumentar tamanho da fonte */
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(77, 38, 82, 0.2);
+    box-shadow: 0 6px 15px rgba(106, 5, 114, 0.25); /* Sombra mais pronunciada */
+    letter-spacing: 0.5px;
 }
 
 button[type="submit"]:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px);
+    transform: translateY(-3px); /* Efeito de elevação mais pronunciado */
+    box-shadow: 0 8px 20px var(--shadow-medium); /* Sombra mais forte no hover */
 }
 
 .results-section {
     margin-top: 3rem;
-    padding: 2rem;
+    padding: 2.5rem; /* Aumentar padding */
     background: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-medium);
+    border-radius: 12px; /* Borda mais arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra mais pronunciada */
 }
 
 .result-type {
     margin-top: 1.5rem;
-    padding: 1.2rem;
-    border-left: 5px solid var(--primary-color);
+    padding: 1.5rem; /* Aumentar padding */
+    border-left: 6px solid var(--primary-color); /* Aumentar espessura da borda */
     background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--shadow-light);
+    border-radius: 10px; /* Borda mais arredondada */
+    box-shadow: 0 4px 10px var(--shadow-light); /* Sombra mais suave */
 }
 
 .resultado {
     text-align: center;
-    margin-top: 2.5rem;
+    margin-top: 3rem; /* Aumentar margem superior */
 }
 
 @media (max-width: 768px) {
