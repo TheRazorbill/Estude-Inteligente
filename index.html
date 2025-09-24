@@ -1,51 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#6A0572',
+              'secondary': '#8E299C',
+              'accent': '#FFD700',
+              'text-dark': '#2C3E50',
+              'text-light': '#7F8C8D',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
+    
     <title>Estude + Inteligente - Home</title>
 </head>
-<body>
-    <header>
-        <img src="assets/img/logo.png" alt="Logo do Estude + Inteligente" class="logo">
-        <h1>Estude + Inteligente</h1>
+<body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
+                <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
+                <a href="sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
+                <a href="pages/quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
+                <a href="pages/techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <i data-feather="sun" class="hidden dark:block"></i>
+                    <i data-feather="moon" class="dark:hidden"></i>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="nav-link font-medium py-2">Home</a>
+                <a href="sobre.html" class="nav-link font-medium py-2">Sobre</a>
+                <a href="pages/quiz.html" class="nav-link font-medium py-2">Quiz</a>
+                <a href="pages/techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+            </div>
+        </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-        </ul>
-        <a href='/pages/quiz.html'><button>Link para quiz</button></a>
-    </nav>
-
-    <main>
-        <section class="separador" id="home">
-            <div>
-                <h2>Quer começar sua jornada de estudos mas não sabe como? Vou te ajudar.</h2>
-                <p>
-                    Muitas pessoas, quando decidem estudar e aprender, acabam desistindo logo no início. 
-                    Seja por falta de dinheiro, material, tutoria personalizada ou até mesmo por não encontrarem um “material perfeito”.  
-                    O excesso de informações na era digital acaba cobrando seu preço.
+    <main class="pt-32">
+        <section id="home" class="py-16">
+            <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Quer começar sua jornada de estudos mas não sabe como?</h2>
+                <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">
+                    Muitas pessoas, quando decidem estudar e aprender, acabam desistindo logo no início. Seja por falta de dinheiro, material, ou o excesso de informações na era digital. Nós vamos te ajudar a encontrar o foco.
                 </p>
             </div>
         </section>
-        <section class="separador">
-            <h2>Pesquise Livros na Open Library</h2>
-            <div class="book-search-container">
-                <input type="text" id="book-search-input" placeholder="Digite o título do livro...">
-                <button id="book-search-button">Buscar Livros</button>
-            </div>
-            <div id="book-search-results" class="book-results">
+        
+        <section id="book-search" class="py-16 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Pesquise Livros na Open Library</h2>
+                    <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">Encontre materiais de estudo para aprofundar seu conhecimento.</p>
+                </div>
+
+                <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 mb-12">
+                    <input type="text" id="book-search-input" placeholder="Digite o título do livro..." class="flex-grow p-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-accent transition">
+                    <button id="book-search-button" class="bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-secondary transition-transform transform hover:scale-105">Buscar Livros</button>
+                </div>
+                
+                <div id="book-search-results">
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Estude + Inteligente — Todos os direitos reservados.</p>
+    <footer class="py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>

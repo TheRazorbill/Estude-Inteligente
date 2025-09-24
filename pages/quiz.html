@@ -1,149 +1,151 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Estilo de Aprendizagem</title>
-    <link rel="stylesheet" href="../assets/css/quizStyle.css">
-</head>
-<body>
-    <h1>Descubra Seu Estilo de Aprendizado</h1>
-    <div class="voltar">
-        <a href="../index.html">Voltar</a>
-    </div>
-    <div class="instructions">
-        <h2>Instruções</h2>
-        <p>Marque uma das opções em cada pergunta. No final, some o número de respostas para cada categoria (Visual, Auditivo, Prático e Organizacional) e veja qual delas teve mais pontos para descobrir qual estilo de aprendizado é mais dominante para você.</p>
-    </div>
+    <title>Quiz de Estilo de Aprendizagem - Estude + Inteligente</title>
     
-    <form id="quiz-form">
-        <div class="question-block">
-            <p class="question">1. Você aprende melhor quando vê imagens ou quando escuta explicações?</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q1" value="visual"> Imagens (Visual)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q1" value="auditivo"> Explicações (Auditivo)
-                    </label>
-                </li>
-            </ul>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#6A0572',
+              'secondary': '#8E299C',
+              'accent': '#FFD700',
+              'text-dark': '#2C3E50',
+              'text-light': '#7F8C8D',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../index.html" class="flex items-center space-x-3">
+                <img src="../assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
+                <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="../index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
+                <a href="../sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
+                <a href="quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
+                <a href="techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <i data-feather="sun" class="hidden dark:block"></i>
+                    <i data-feather="moon" class="dark:hidden"></i>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
         </div>
-
-        <div class="question-block">
-            <p class="question">2. Quando você precisa entender um conteúdo novo, prefere:</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q2" value="pratico"> Fazer exercícios práticos (Prático)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q2" value="organizacional"> Organizar resumos ou cronogramas (Organizacional)
-                    </label>
-                </li>
-            </ul>
-        </div>
-
-        <div class="question-block">
-            <p class="question">3. Se alguém te ensina algo difícil, o que ajuda mais?</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q3" value="visual"> Ver diagramas, esquemas ou mapas (Visual)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q3" value="auditivo"> Conversar sobre o assunto e tirar dúvidas (Auditivo)
-                    </label>
-                </li>
-            </ul>
-        </div>
-
-        <div class="question-block">
-            <p class="question">4. Durante os estudos, você se sente mais confortável:</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q4" value="organizacional"> Seguindo métodos de tempo e organização (cronômetros, agendas...) (Organizacional)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q4" value="pratico"> Explorando livremente, testando e experimentando (Prático)
-                    </label>
-                </li>
-            </ul>
-        </div>
-
-        <div class="question-block">
-            <p class="question">5. Quando precisa memorizar algo importante, você prefere:</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q5" value="auditivo"> Criar histórias ou analogias (Auditivo)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q5" value="visual"> Fazer resumos visuais e coloridos (Visual)
-                    </label>
-                </li>
-            </ul>
-        </div>
-
-        <div class="question-block">
-            <p class="question">6. Em um grupo de estudo, você normalmente:</p>
-            <ul class="options">
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q6" value="auditivo"> Aprende mais explicando para os outros (Auditivo)
-                    </label>
-                </li>
-                <li class="option-item">
-                    <label class="radio-label">
-                        <input type="radio" name="q6" value="pratico"> Aprende mais resolvendo problemas junto com o grupo (Prático)
-                    </label>
-                </li>
-            </ul>
-        </div>
-        <button type="submit">Ver Resultado</button>
-    </form>
-
-    <div class="results-section">
-        <h2>Resultado</h2>
-        <p id="result"></p>
         
-        <h3>Qual o seu estilo de aprendizado?</h3>
-        <p>A categoria com o maior número de respostas é seu estilo de aprendizado mais dominante. Leia a descrição abaixo para entender melhor.</p>
-        
-        <div class="result-type">
-            <h4>Se a maioria das suas respostas foi "Visual":</h4>
-            <p>Você aprende melhor vendo. Mapas mentais, diagramas, vídeos e textos com cores e imagens são ferramentas ideais para você.</p>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="../index.html" class="nav-link font-medium py-2">Home</a>
+                <a href="../sobre.html" class="nav-link font-medium py-2">Sobre</a>
+                <a href="quiz.html" class="nav-link font-medium py-2">Quiz</a>
+                <a href="techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+            </div>
         </div>
-        <div class="result-type">
-            <h4>Se a maioria das suas respostas foi "Auditivo":</h4>
-            <p>Você aprende melhor escutando. Aulas expositivas, podcasts, discussões em grupo e até mesmo explicar o conteúdo em voz alta ajudam a fixar o conhecimento.</p>
-        </div>
-        <div class="result-type">
-            <h4>Se a maioria das suas respostas foi "Prático":</h4>
-            <p>Você aprende melhor fazendo. Experimentos, resolução de problemas, exercícios e projetos práticos são a sua forma de absorver e reter informações.</p>
-        </div>
-        <div class="result-type">
-            <h4>Se a maioria das suas respostas foi "Organizacional":</h4>
-            <p>Você aprende melhor através da organização. Criar rotinas, agendas, listas, cronogramas e resumos estruturados ajuda a ter uma visão clara do conteúdo e do processo de estudo.</p>
-        </div>
-        <div class="result-type resultado">
-            <h2>Apos responder tudo em um caderno confira qual o seu estilo de aprendizado</h2>
-            <a href="../pages/techniques.html"><button type="submit">Ver Recomendação</button></a>
-        </div>
-    </div>
+    </header>
 
+    <main class="pt-32">
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4">Descubra Seu Estilo de Aprendizado</h1>
+                    <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">Responda às perguntas para identificar a forma como você aprende melhor e receba recomendações de técnicas de estudo.</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto">
+                    <form id="quiz-form" class="space-y-8">
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="100">
+                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">1. Você aprende melhor quando vê imagens ou quando escuta explicações?</p>
+                            <ul class="space-y-3">
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q1" value="visual" class="mr-3">Imagens (Visual)</label></li>
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q1" value="auditivo" class="mr-3">Explicações (Auditivo)</label></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
+                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">2. Quando você precisa entender um conteúdo novo, prefere:</p>
+                            <ul class="space-y-3">
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q2" value="pratico" class="mr-3">Fazer exercícios práticos (Prático)</label></li>
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q2" value="organizacional" class="mr-3">Organizar resumos ou cronogramas (Organizacional)</label></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="300">
+                           <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">3. Se alguém te ensina algo difícil, o que ajuda mais?</p>
+                           <ul class="space-y-3">
+                               <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q3" value="visual" class="mr-3">Ver diagramas, esquemas ou mapas (Visual)</label></li>
+                               <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q3" value="auditivo" class="mr-3">Conversar sobre o assunto e tirar dúvidas (Auditivo)</label></li>
+                           </ul>
+                        </div>
+                        
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="400">
+                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">4. Durante os estudos, você se sente mais confortável:</p>
+                            <ul class="space-y-3">
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q4" value="organizacional" class="mr-3">Seguindo métodos de tempo e organização (Organizacional)</label></li>
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q4" value="pratico" class="mr-3">Explorando livremente, testando e experimentando (Prático)</label></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="500">
+                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">5. Quando precisa memorizar algo importante, você prefere:</p>
+                            <ul class="space-y-3">
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q5" value="auditivo" class="mr-3">Criar histórias ou analogias (Auditivo)</label></li>
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q5" value="visual" class="mr-3">Fazer resumos visuais e coloridos (Visual)</label></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="600">
+                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">6. Em um grupo de estudo, você normalmente:</p>
+                            <ul class="space-y-3">
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q6" value="auditivo" class="mr-3">Aprende mais explicando para os outros (Auditivo)</label></li>
+                                <li><label class="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary dark:hover:border-accent transition"><input type="radio" name="q6" value="pratico" class="mr-3">Aprende mais resolvendo problemas junto com o grupo (Prático)</label></li>
+                            </ul>
+                        </div>
+
+                        <div class="text-center pt-4">
+                           <button type="submit" class="bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-secondary transition-transform transform hover:scale-105">Ver Resultado</button>
+                        </div>
+                    </form>
+
+                    <div id="results-section" class="mt-16 text-center bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg" data-aos="fade-up">
+                        <h2 class="text-2xl font-bold mb-4">Seu Resultado</h2>
+                        <p id="result" class="text-lg text-text-light dark:text-gray-300 min-h-[3rem]"></p>
+                        <a href="techniques.html" id="recommendation-link" class="mt-6 inline-block bg-accent text-text-dark font-bold py-3 px-8 rounded-lg hover:bg-yellow-400 transition-transform transform hover:scale-105 hidden">
+                            Ver Técnicas Recomendadas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="../assets/js/script.js"></script>
     <script src="../assets/js/quizScript.js"></script>
 </body>
 </html>

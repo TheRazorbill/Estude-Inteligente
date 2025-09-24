@@ -1,81 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#6A0572',
+              'secondary': '#8E299C',
+              'accent': '#FFD700',
+              'text-dark': '#2C3E50',
+              'text-light': '#7F8C8D',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
-    <title>Estude + Inteligente</title>
+    
+    <title>Sobre - Estude + Inteligente</title>
 </head>
-<body>
-    <header>
-        <img src="assets/img/logo.png" alt="Logo do Estude + Inteligente" class="logo">
-        <h1>Estude + Inteligente</h1>
+<body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
+                <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
+                <a href="sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
+                <a href="pages/quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
+                <a href="pages/techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <i data-feather="sun" class="hidden dark:block"></i>
+                    <i data-feather="moon" class="dark:hidden"></i>
+                </button>
+                <button class="md:hidden" id="mobile-menu-button">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="nav-link font-medium py-2">Home</a>
+                <a href="sobre.html" class="nav-link font-medium py-2">Sobre</a>
+                <a href="pages/quiz.html" class="nav-link font-medium py-2">Quiz</a>
+                <a href="pages/techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+            </div>
+        </div>
     </header>
 
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-        </ul>
-        <a href='/pages/quiz.html'><button>Link para quiz</button></a>
-    </nav>
+    <main class="pt-32">
+        <section id="sobre" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossa Missão é Simplificar seu Aprendizado</h2>
+                    <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">
+                        Na era da informação, o excesso pode ser paralisante. Estamos aqui para filtrar o ruído e oferecer clareza.
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-2xl font-bold text-primary dark:text-purple-300 mb-3">Imagine só...</h3>
+                        <p class="text-text-light dark:text-gray-300 leading-relaxed">Você decide se dedicar e a primeira coisa que faz é pesquisar em um <abbr title="Search Engine (mecanismo de busca)">mecanismo de busca</abbr> ou em alguma rede social. Grande erro! O que você mais vai encontrar é perda de tempo: títulos chamativos como <em>“Decore qualquer coisa em 7 dias”</em>. Embora possam ter algo útil, a maioria só quer vender uma fórmula mágica.</p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-2xl font-bold text-primary dark:text-purple-300 mb-3">Por que esses vídeos podem ser prejudiciais?</h3>
+                        <p class="text-text-light dark:text-gray-300 leading-relaxed">Porque você é bombardeado por diversas informações de professores, alunos, gurus e coaches. A maior parte é a tentativa de criar uma <abbr title="No folclore, uma bala de prata é a única capaz de matar lobisomens e monstros.">bala de prata</abbr>: a ilusão de que um único vídeo pode resolver seu problema.</p>
+                    </div>
 
-    <main>
-        <section class="separador"  id="sobre">
-            <h2>Quer começar sua jornada de estudos mas não sabe como? Vou te ajudar.</h2>
-            <p>
-                Muitas pessoas, quando decidem estudar e aprender, acabam desistindo logo no início.
-                Seja por falta de dinheiro, material, tutoria personalizada ou até mesmo por não encontrarem um “material perfeito”.
-                O excesso de informações na era digital acaba cobrando seu preço.
-            </p>
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-2xl font-bold text-primary dark:text-purple-300 mb-3">Somos únicos!</h3>
+                        <p class="text-text-light dark:text-gray-300 leading-relaxed">Esse título pode parecer motivacional, mas é verdade. Cada pessoa aprende de forma diferente. Se existem tantas formas de ensinar, é porque não existe uma única maneira perfeita de aprender.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-2xl font-bold text-primary dark:text-purple-300 mb-3">O que eu faço então?</h3>
+                        <p class="text-text-light dark:text-gray-300 leading-relaxed">Pensando nisso, reunimos aqui diferentes métodos e estratégias. Se não obtiver resultados logo de cara, não desanime: tente de novo. Se mesmo assim continuar com dificuldades, recomendamos procurar ajuda profissional, pois às vezes o bloqueio não está na técnica, mas na nossa mente.</p>
+                    </div>
+                </div>
+            </div>
         </section>
-
-        <article class="separador">
-            <h3>Imagine só:</h3>
-            <p>
-                Você decide se dedicar e a primeira coisa que faz é pesquisar em um 
-                <abbr title="Search Engine (mecanismo de busca) é um sistema online que permite encontrar informações na internet.">mecanismo de busca</abbr> 
-                ou em alguma rede social. Grande erro! O que você mais vai encontrar é perda de tempo: 
-                títulos chamativos como <em>“Decore qualquer coisa em 7 dias”</em> ou 
-                <em>“Aprenda tudo em 10 passos”</em>.  
-                Embora possam ter algo útil, a maioria só quer vender uma fórmula mágica.
-            </p>
-        </article>
-
-        <article class="separador">
-            <h3>Por que esses vídeos podem ser prejudiciais?</h3>
-            <p>
-                Porque você é bombardeado por diversas informações de professores, alunos, 
-                gurus e coaches. Às vezes até encontra dicas úteis, mas a maior parte é a tentativa 
-                de criar uma <abbr title="No folclore, uma bala de prata é a única capaz de matar lobisomens e monstros.">bala de prata</abbr>: 
-                a ilusão de que um único vídeo pode resolver seu problema.
-            </p>
-        </article>
-
-        <article class="separador">
-            <h3>Somos únicos!</h3>
-            <p>
-                Esse título pode parecer coisa de curso motivacional, mas é verdade.  
-                Cada pessoa aprende de forma diferente. Se existem tantas formas de ensinar um mesmo assunto, 
-                é justamente porque não existe uma única maneira perfeita de aprender. 
-            </p>
-        </article>
-
-        <article class="separador">
-            <h3>O que eu faço então?</h3>
-            <p>
-                Pensando nisso, reuni aqui diferentes métodos e estratégias de aprendizado.  
-                Se você não obtiver resultados logo de cara, não desanime: tente de novo.  
-                Se mesmo assim continuar com dificuldades, recomendo procurar ajuda profissional, 
-                pois às vezes o bloqueio não está na técnica, mas na nossa mente.
-            </p>
-        </article>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Estude + Inteligente — Todos os direitos reservados.</p>
+    <footer class="py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
+            <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
+        </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
