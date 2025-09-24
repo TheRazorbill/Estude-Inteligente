@@ -4,7 +4,7 @@
 
 O projeto "Estude + Inteligente" é uma plataforma web desenvolvida para auxiliar estudantes a descobrir seu estilo de aprendizagem predominante e a encontrar recursos relevantes, como livros, para otimizar seus estudos. A aplicação oferece um quiz interativo para identificar o perfil de aprendizado (Visual, Auditivo, Prático ou Organizacional) e uma funcionalidade de busca de livros integrada com a Open Library API.
 
- [-> Clique aqui para acessar <-](https://silver-boba-60f243.netlify.app/)
+ [-> Clique aqui para acessar <-](https://estude-mais-inteligente.netlify.app/)
 
 ## Funcionalidades Principais
 
