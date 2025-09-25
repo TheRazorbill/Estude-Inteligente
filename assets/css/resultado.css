@@ -1,12 +1,12 @@
 :root {
-    --primary-color: #6A0572; /* Roxo profundo e vibrante */
-    --secondary-color: #8E299C; /* Roxo ligeiramente mais claro para hover/ênfase */
-    --accent-color: #FFD700; /* Amarelo dourado para detalhes e destaques */
-    --text-color: #2C3E50; /* Azul marinho escuro para texto principal */
-    --light-text-color: #7F8C8D; /* Cinza médio para texto secundário */
-    --background-color: #F8F9FA; /* Branco acinzentado muito claro para o fundo */
-    --card-background: #FFFFFF; /* Branco puro para cards */
-    --border-color: #E0E0E0; /* Cinza claro para bordas */
+    --primary-color: #6A0572;
+    --secondary-color: #8E299C;
+    --accent-color: #FFD700;
+    --text-color: #2C3E50;
+    --light-text-color: #7F8C8D;
+    --background-color: #F8F9FA;
+    --card-background: #FFFFFF;
+    --border-color: #E0E0E0;
     --shadow-light: rgba(0, 0, 0, 0.04);
     --shadow-medium: rgba(0, 0, 0, 0.08);
     --shadow-strong: rgba(0, 0, 0, 0.12);
@@ -23,7 +23,7 @@ body {
     font-family: var(--font-family);
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.6; /* Ajuste para melhor legibilidade */
+    line-height: 1.6;
     padding: 1.5rem;
     font-size: 16px;
 }
@@ -38,20 +38,20 @@ body {
 .voltar button {
     background-color: var(--primary-color);
     border: none;
-    padding: 0.9rem 1.8rem; /* Ajuste de padding */
+    padding: 0.9rem 1.8rem;
     color: white;
-    font-weight: 600; /* Peso da fonte mais forte */
-    border-radius: 8px; /* Borda mais arredondada */
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px var(--shadow-medium); /* Sombra mais pronunciada */
+    box-shadow: 0 4px 10px var(--shadow-medium); 
     letter-spacing: 0.5px;
 }
 
 .voltar button:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px); /* Efeito de elevação mais pronunciado */
-    box-shadow: 0 6px 12px var(--shadow-medium); /* Sombra no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-medium);
 }
 
 .container {
@@ -61,25 +61,25 @@ body {
 
 .container h1 {
     text-align: center;
-    margin-bottom: 3rem; /* Aumentar margem inferior */
+    margin-bottom: 3rem; 
     color: var(--primary-color);
-    font-size: 2.5rem; /* Aumentar tamanho da fonte */
+    font-size: 2.5rem;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
 
 .technique {
     background: var(--card-background);
-    padding: 2.5rem; /* Aumentar padding */
-    margin-bottom: 3rem; /* Aumentar margem inferior */
-    border-radius: 12px; /* Borda mais arredondada */
-    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra mais pronunciada */
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px var(--shadow-medium); 
 }
 
 .technique h2 {
     margin-bottom: 1.2rem;
     color: var(--primary-color);
-    font-size: 2rem; /* Aumentar tamanho da fonte */
+    font-size: 2rem;
     font-weight: 600;
     letter-spacing: -0.3px;
 }
@@ -88,17 +88,17 @@ body {
     font-style: italic;
     color: var(--light-text-color);
     margin-bottom: 1rem;
-    font-size: 1.1rem; /* Aumentar tamanho da fonte */
+    font-size: 1.1rem; 
 }
 
 .difficulty {
     font-weight: 600;
     margin-bottom: 1.5rem;
-    font-size: 1.05rem; /* Ajustar tamanho da fonte */
+    font-size: 1.05rem;
 }
 
 .difficulty span {
-    color: var(--accent-color); /* Usar accent-color */
+    color: var(--accent-color);
     font-weight: 700;
 }
 
@@ -112,16 +112,16 @@ body {
     display: inline-block;
     background-color: var(--border-color);
     color: var(--text-color);
-    font-size: 0.8rem; /* Ajustar tamanho da fonte */
-    margin: 0 0.5rem 0.5rem 0; /* Ajustar margens */
-    padding: 0.5rem 1rem; /* Ajustar padding */
-    border-radius: 20px; /* Mais arredondado */
+    font-size: 0.8rem;
+    margin: 0 0.5rem 0.5rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-weight: 500;
     letter-spacing: 0.2px;
 }
 
 .technique ul {
-    margin: 1rem 0 1.8rem 1.8rem; /* Ajustar margens */
+    margin: 1rem 0 1.8rem 1.8rem;
     list-style: disc;
 }
 
