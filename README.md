@@ -72,4 +72,5 @@ Para visualizar e interagir com o projeto:
 -   Open Library API
 
 
-<img width="1919" height="1017" alt="image" src="https://github.com/user-attachments/assets/05255402-f23f-47fe-b500-6cf80353a468" />
+<img width="1919" height="1097" alt="image" src="https://github.com/user-attachments/assets/5b85e09e-602d-4848-9f77-2d3fcbda8eeb" />
+
