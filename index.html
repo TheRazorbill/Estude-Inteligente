@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo.">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            colors: {
-              'primary': '#6A0572',
-              'secondary': '#8E299C',
-              'accent': '#FFD700',
-              'text-dark': '#2C3E50',
-              'text-light': '#7F8C8D',
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo.">
+  
+  <script>
+    if (
+      localStorage.getItem('theme') === 'dark' || 
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#6A0572',
+            'secondary': '#8E299C',
+            'accent': '#FFD700',
+            'text-dark': '#2C3E50',
+            'text-light': '#7F8C8D',
           }
         }
       }
-    </script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-    <title>Estude + Inteligente - Home</title>
+    }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  
+  <title>Estude + Inteligente - Home</title>
 </head>
 <body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
     <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
@@ -41,6 +52,7 @@
                 <a href="sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
                 <a href="pages/quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
                 <a href="pages/techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+                <a href="pomodoro.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Pomodoro</a>
             </nav>
             
             <div class="flex items-center space-x-4">
@@ -60,6 +72,7 @@
                 <a href="sobre.html" class="nav-link font-medium py-2">Sobre</a>
                 <a href="pages/quiz.html" class="nav-link font-medium py-2">Quiz</a>
                 <a href="pages/techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+                <a href="pomodoro.html" class="nav-link font-medium py-2">Pomodoro</a>
             </div>
         </div>
     </header>

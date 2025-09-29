@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz de Estilo de Aprendizagem - Estude + Inteligente</title>
     
+  <script>
+    if (
+      localStorage.getItem('theme') === 'dark' || 
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -39,6 +50,7 @@
                 <a href="../sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
                 <a href="quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
                 <a href="techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+                <a href="../pomodoro.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Pomodoro</a>
             </nav>
             
             <div class="flex items-center space-x-4">
@@ -58,6 +70,7 @@
                 <a href="../sobre.html" class="nav-link font-medium py-2">Sobre</a>
                 <a href="quiz.html" class="nav-link font-medium py-2">Quiz</a>
                 <a href="techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+                <a href="../pomodoro.html" class="nav-link font-medium py-2">Pomodoro</a>
             </div>
         </div>
     </header>

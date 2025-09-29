@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro & To-Do List - Estude + Inteligente</title>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'primary': '#6A0572', 'secondary': '#8E299C', 'accent': '#FFD700', 'text-dark': '#2C3E50', 'text-light': '#7F8C8D', } } } }
+  </script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .concluida { text-decoration: line-through; color: #9ca3af; }
+    .dark .concluida { color: #6b7280; }
+    #settings-modal { transition: opacity 0.3s ease; }
+  </style>
+</head>
+<body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+  <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-3">
+        <img src="assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
+        <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
+      </a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
+        <a href="sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
+        <a href="pages/quiz.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Quiz</a>
+        <a href="pages/techniques.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Técnicas</a>
+        <a href="pomodoro.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Pomodoro</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i data-feather="sun" class="hidden dark:block"></i>
+          <i data-feather="moon" class="dark:hidden"></i>
+        </button>
+        <button class="md:hidden" id="mobile-menu-button">
+          <i data-feather="menu"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <a href="index.html" class="nav-link font-medium py-2">Home</a>
+        <a href="sobre.html" class="nav-link font-medium py-2">Sobre</a>
+        <a href="pages/quiz.html" class="nav-link font-medium py-2">Quiz</a>
+        <a href="pages/techniques.html" class="nav-link font-medium py-2">Técnicas</a>
+        <a href="pomodoro.html" class="nav-link font-medium py-2">Pomodoro</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-16">
+    <div class="container mx-auto px-4 space-y-12">
+      <section data-aos="fade-up">
+        <div class="max-w-xl mx-auto">
+          <div class="flex items-center justify-center gap-4 mb-6">
+            <h1 class="text-3xl font-bold text-center">Pomodoro Timer</h1>
+            <button id="settings-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+              <i data-feather="settings"></i>
+            </button>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center space-y-6">
+            <div class="timer-display text-5xl md:text-6xl font-bold">
+              <span id="minutes">25</span>:<span id="seconds">00</span>
+            </div>
+
+            <div id="progress-indicator" class="flex justify-center items-center gap-2">
+              </div>
+
+            <div class="flex justify-center flex-wrap gap-3">
+              <button id="start-btn" class="px-5 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition-colors">Iniciar</button>
+              <button id="pause-btn" class="px-5 py-2 rounded-lg bg-gray-400 text-white hover:bg-gray-500 transition-colors">Pausar</button>
+              <button id="reset-btn" class="px-5 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors">Reiniciar</button>
+              <button id="complete-round-btn" class="px-5 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors">Concluir Rodada</button>
+            </div>
+            <div class="session-info text-lg pt-4">
+              <p>Sessão: <span id="session-type" class="font-semibold">Estudo</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section data-aos="fade-up" data-aos-delay="100">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
+          <h1 class="text-2xl font-bold mb-4">Lista de Tarefas</h1>
+          <div class="flex gap-2 mb-4">
+            <input type="text" id="tarefa" placeholder="Adicionar nova tarefa..." class="flex-grow p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-teal-500 transition">
+            <button id="adicionar" class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition-colors">Adicionar</button>
+          </div>
+          <ul id="lista-tarefas" class="space-y-2"></ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="settings-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto" data-aos="fade-up">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Configurações</h2>
+        <button id="close-settings-btn" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <section>
+          <h3 class="text-xl font-bold mb-4">Tempos e Ciclo</h3>
+          <div class="space-y-4">
+            <label class="flex flex-col"><span class="mb-1">Tempo de Estudo (minutos):</span><input type="number" id="study-time" value="25" min="1" class="p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700"></label>
+            <label class="flex flex-col"><span class="mb-1">Pausa Curta (minutos):</span><input type="number" id="short-break-time" value="5" min="1" class="p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700"></label>
+            <label class="flex flex-col"><span class="mb-1">Pausa Longa (minutos):</span><input type="number" id="long-break-time" value="15" min="1" class="p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700"></label>
+            <label class="flex flex-col"><span class="mb-1">Rodadas até a Pausa Longa:</span><input type="number" id="long-break-interval" value="3" min="1" class="p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700"></label>
+            <label class="flex flex-col"><span class="mb-1">Total de Rodadas de Estudo no Ciclo:</span><input type="number" id="total-sessions" value="6" min="1" class="p-2 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700"></label>
+          </div>
+          <button id="save-time-settings" class="mt-6 px-4 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition-colors w-full">Salvar</button>
+        </section>
+        <section>
+            </section>
+      </div>
+    </div>
+  </div>
+
+  <footer class="py-8">
+    <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
+      <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true });
+    feather.replace();
+  </script>
+  <script src="assets/js/script.js"></script>
+  <script src="assets/js/pomodoro.js"></script>
+</body>
+</html>
