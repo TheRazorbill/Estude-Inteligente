@@ -84,5 +84,10 @@ Para visualizar e interagir com o projeto:
 -   Open Library API
 
 
-<img width="1919" height="1097" alt="image" src="https://github.com/user-attachments/assets/5b85e09e-602d-4848-9f77-2d3fcbda8eeb" />
+<img width="1919" height="1095" alt="Screenshot 2025-09-29 111619" src="https://github.com/user-attachments/assets/1af43944-83a8-4efb-94b6-704ea326cbb3" />
+<img width="1919" height="1095" alt="Screenshot 2025-09-29 111549" src="https://github.com/user-attachments/assets/f60230e8-1771-4d8a-a0db-acf401e735a8" />
+<img width="1919" height="1098" alt="Screenshot 2025-09-29 111557" src="https://github.com/user-attachments/assets/e0f5c51a-4b10-42a1-9088-59595b407983" />
+
+
+
 
