@@ -1,171 +1,189 @@
+/* Define variáveis CSS para cores e fontes, facilitando a manutenção e padronização do design */
 :root {
-    --primary-color: #6A0572;
-    --secondary-color: #8E299C;
-    --accent-color: #FFD700;
-    --text-color: #2C3E50;
-    --light-text-color: #7F8C8D;
-    --background-color: #F8F9FA;
-    --card-background: #FFFFFF;
-    --border-color: #E0E0E0;
-    --shadow-light: rgba(0, 0, 0, 0.04);
-    --shadow-medium: rgba(0, 0, 0, 0.08);
-    --shadow-strong: rgba(0, 0, 0, 0.12);
-    --font-family: 'Roboto', sans-serif;
+    --primary-color: #6A0572; /* Cor principal: um tom de roxo escuro */
+    --secondary-color: #8E299C; /* Cor secundária: um tom de roxo médio */
+    --accent-color: #FFD700; /* Cor de destaque: amarelo ouro */
+    --text-color: #2C3E50; /* Cor padrão para textos em tema claro */
+    --light-text-color: #7F8C8D; /* Cor para textos mais suaves em tema claro */
+    --background-color: #F8F9FA; /* Cor de fundo principal da página em tema claro */
+    --card-background: #FFFFFF; /* Cor de fundo para cards e blocos de conteúdo em tema claro */
+    --border-color: #E0E0E0; /* Cor padrão para bordas */
+    --shadow-light: rgba(0, 0, 0, 0.04); /* Sombra leve para elementos */
+    --shadow-medium: rgba(0, 0, 0, 0.08); /* Sombra média para elementos */
+    --shadow-strong: rgba(0, 0, 0, 0.12); /* Sombra forte para elementos */
+    --font-family: 'Roboto', sans-serif; /* Família de fonte padrão */
 }
 
+/* Reset básico de CSS para remover margens e preenchimentos padrão dos navegadores */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura total do elemento */
 }
 
+/* Estilos globais para o corpo da página */
 body {
-    font-family: var(--font-family);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: 1.5rem;
-    font-size: 16px;
+    font-family: var(--font-family); /* Aplica a fonte definida na variável */
+    background-color: var(--background-color); /* Aplica a cor de fundo definida */
+    color: var(--text-color); /* Aplica a cor do texto definida */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor legibilidade */
+    padding: 1.5rem; /* Preenchimento interno em toda a página */
+    font-size: 16px; /* Tamanho de fonte base */
 }
 
+/* Estilo para a seção de botões "Voltar" */
 .voltar {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    justify-content: center;
+    display: flex; /* Usa flexbox para alinhar os botões */
+    gap: 1rem; /* Espaçamento entre os botões */
+    margin-bottom: 2.5rem; /* Margem inferior */
+    justify-content: center; /* Centraliza os botões horizontalmente */
 }
 
+/* Estilo para os botões dentro da seção "Voltar" */
 .voltar button {
-    background-color: var(--primary-color);
-    border: none;
-    padding: 0.9rem 1.8rem;
-    color: white;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px var(--shadow-medium); 
-    letter-spacing: 0.5px;
+    background-color: var(--primary-color); /* Cor de fundo do botão */
+    border: none; /* Remove a borda padrão */
+    padding: 0.9rem 1.8rem; /* Preenchimento interno */
+    color: white; /* Cor do texto do botão */
+    font-weight: 600; /* Peso da fonte */
+    border-radius: 8px; /* Borda arredondada */
+    cursor: pointer; /* Altera o cursor para indicar clicável */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves para hover */
+    box-shadow: 0 4px 10px var(--shadow-medium); /* Sombra para o botão */
+    letter-spacing: 0.5px; /* Espaçamento entre letras */
 }
 
+/* Efeito de hover para os botões "Voltar" */
 .voltar button:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px var(--shadow-medium);
+    background-color: var(--secondary-color); /* Altera a cor de fundo no hover */
+    transform: translateY(-2px); /* Move o botão ligeiramente para cima */
+    box-shadow: 0 6px 12px var(--shadow-medium); /* Aumenta a sombra no hover */
 }
 
+/* Estilo para o container principal de conteúdo */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 900px; /* Largura máxima do container */
+    margin: 0 auto; /* Centraliza o container horizontalmente */
 }
 
+/* Estilo para o título principal (h1) dentro do container */
 .container h1 {
-    text-align: center;
-    margin-bottom: 3rem; 
-    color: var(--primary-color);
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 3rem; /* Margem inferior */
+    color: var(--primary-color); /* Cor do título */
+    font-size: 2.5rem; /* Tamanho da fonte */
+    font-weight: 700; /* Peso da fonte (negrito) */
+    letter-spacing: -0.5px; /* Espaçamento entre letras */
 }
 
+/* Estilo para cada bloco de técnica de estudo */
 .technique {
-    background: var(--card-background);
-    padding: 2.5rem;
-    margin-bottom: 3rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px var(--shadow-medium); 
+    background: var(--card-background); /* Cor de fundo do card */
+    padding: 2.5rem; /* Preenchimento interno */
+    margin-bottom: 3rem; /* Margem inferior */
+    border-radius: 12px; /* Borda arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra média */
 }
 
+/* Estilo para o título de cada técnica (h2) */
 .technique h2 {
-    margin-bottom: 1.2rem;
-    color: var(--primary-color);
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: -0.3px;
+    margin-bottom: 1.2rem; /* Margem inferior */
+    color: var(--primary-color); /* Cor do título */
+    font-size: 2rem; /* Tamanho da fonte */
+    font-weight: 600; /* Peso da fonte */
+    letter-spacing: -0.3px; /* Espaçamento entre letras */
 }
 
+/* Estilo para o resumo da técnica */
 .summary {
-    font-style: italic;
-    color: var(--light-text-color);
-    margin-bottom: 1rem;
-    font-size: 1.1rem; 
+    font-style: italic; /* Texto em itálico */
+    color: var(--light-text-color); /* Cor do texto suave */
+    margin-bottom: 1rem; /* Margem inferior */
+    font-size: 1.1rem; /* Tamanho da fonte */
 }
 
+/* Estilo para a seção de dificuldade da técnica */
 .difficulty {
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    font-size: 1.05rem;
+    font-weight: 600; /* Peso da fonte */
+    margin-bottom: 1.5rem; /* Margem inferior */
+    font-size: 1.05rem; /* Tamanho da fonte */
 }
 
+/* Estilo para o valor da dificuldade (ex: "Fácil", "Médio") */
 .difficulty span {
-    color: var(--accent-color);
-    font-weight: 700;
+    color: var(--accent-color); /* Cor de destaque */
+    font-weight: 700; /* Peso da fonte (negrito) */
 }
 
+/* Estilo para a seção de categorias da técnica */
 .categories {
-    margin-top: 1.5rem;
-    font-size: 0.95rem;
-    color: var(--light-text-color);
+    margin-top: 1.5rem; /* Margem superior */
+    font-size: 0.95rem; /* Tamanho da fonte */
+    color: var(--light-text-color); /* Cor do texto suave */
 }
 
+/* Estilo para cada "label" (tag de categoria) */
 .label {
-    display: inline-block;
-    background-color: var(--border-color);
-    color: var(--text-color);
-    font-size: 0.8rem;
-    margin: 0 0.5rem 0.5rem 0;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 500;
-    letter-spacing: 0.2px;
+    display: inline-block; /* Exibe como bloco, mas permite que outros elementos fiquem na mesma linha */
+    background-color: var(--border-color); /* Cor de fundo */
+    color: var(--text-color); /* Cor do texto */
+    font-size: 0.8rem; /* Tamanho da fonte */
+    margin: 0 0.5rem 0.5rem 0; /* Margens para espaçamento */
+    padding: 0.5rem 1rem; /* Preenchimento interno */
+    border-radius: 20px; /* Borda arredondada (formato de pílula) */
+    font-weight: 500; /* Peso da fonte */
+    letter-spacing: 0.2px; /* Espaçamento entre letras */
 }
 
+/* Estilo para listas não ordenadas dentro das técnicas */
 .technique ul {
-    margin: 1rem 0 1.8rem 1.8rem;
-    list-style: disc;
+    margin: 1rem 0 1.8rem 1.8rem; /* Margens para espaçamento e indentação */
+    list-style: disc; /* Marcadores de lista em disco */
 }
 
+/* Estilo para cada item da lista dentro das técnicas */
 .technique ul li {
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.7rem; /* Margem inferior */
 }
 
+/* Media queries para responsividade em telas menores (até 768px de largura) */
 @media (max-width: 768px) {
     .voltar {
-        flex-direction: column;
-        gap: 0.8rem;
+        flex-direction: column; /* Empilha os botões verticalmente */
+        gap: 0.8rem; /* Reduz o espaçamento entre os botões */
     }
 
     .voltar button {
-        width: 100%;
+        width: 100%; /* Botões ocupam a largura total */
     }
 
     .container h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem; /* Reduz o tamanho da fonte do título principal */
     }
 
     .technique {
-        padding: 1.5rem;
-        margin-bottom: 2rem;
+        padding: 1.5rem; /* Reduz o preenchimento dos blocos de técnica */
+        margin-bottom: 2rem; /* Reduz a margem inferior dos blocos de técnica */
     }
 
     .technique h2 {
-        font-size: 1.5rem;
+        font-size: 1.5rem; /* Reduz o tamanho da fonte do título da técnica */
     }
 
     .summary {
-        font-size: 1rem;
+        font-size: 1rem; /* Reduz o tamanho da fonte do resumo */
     }
 
     .difficulty {
-        font-size: 0.95rem;
+        font-size: 0.95rem; /* Reduz o tamanho da fonte da dificuldade */
     }
 
     .categories {
-        font-size: 0.9rem;
+        font-size: 0.9rem; /* Reduz o tamanho da fonte das categorias */
     }
 
     .label {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem; /* Reduz o preenchimento dos labels */
+        font-size: 0.8rem; /* Reduz o tamanho da fonte dos labels */
     }
 }

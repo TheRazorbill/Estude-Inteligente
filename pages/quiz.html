@@ -1,28 +1,36 @@
+<!-- Define o tipo de documento como HTML5 -->
 <!DOCTYPE html>
+<!-- Define o idioma principal da página como Português do Brasil e habilita classes do Tailwind CSS -->
 <html lang="pt-BR" class="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Estilo de Aprendizagem - Estude + Inteligente</title>
+    <!-- Configurações básicas do documento -->
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para responsividade -->
+    <title>Quiz de Estilo de Aprendizagem - Estude + Inteligente</title> <!-- Título da página -->
     
+  <!-- Script para gerenciar o tema (claro/escuro) -->
   <script>
+    // Verifica o tema preferido do usuário ou o tema salvo no localStorage
     if (
-      localStorage.getItem('theme') === 'dark' || 
+      localStorage.getItem('theme') === 'dark' ||
       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('dark'); // Adiciona a classe 'dark' se o tema for escuro
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove('dark'); // Remove a classe 'dark' se o tema for claro
     }
   </script>
 
+    <!-- Importa o framework Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configurações personalizadas do Tailwind CSS -->
     <script>
       tailwind.config = {
-        darkMode: 'class',
+        darkMode: 'class', // Habilita o dark mode baseado na classe 'dark'
         theme: {
           extend: {
             colors: {
+              // Define cores personalizadas
               'primary': '#6A0572',
               'secondary': '#8E299C',
               'accent': '#FFD700',
@@ -33,18 +41,26 @@
         }
       }
     </script>
+    <!-- Importa a biblioteca AOS (Animate On Scroll) para animações -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Importa a fonte 'Inter' do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Link para o arquivo CSS principal do projeto (localizado na pasta assets) -->
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
+<!-- Corpo da página, com classes Tailwind para estilo base e transição de cores para o tema -->
 <body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Cabeçalho fixo da página -->
     <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <!-- Container principal do cabeçalho -->
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo e nome do site -->
             <a href="../index.html" class="flex items-center space-x-3">
                 <img src="../assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
                 <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
             </a>
             
+            <!-- Navegação principal para telas maiores -->
             <nav class="hidden md:flex space-x-8">
                 <a href="../index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
                 <a href="../sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
@@ -53,17 +69,21 @@
                 <a href="../pomodoro.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Pomodoro</a>
             </nav>
             
+            <!-- Botões de alternância de tema e menu mobile -->
             <div class="flex items-center space-x-4">
+                <!-- Botão para alternar entre tema claro e escuro -->
                 <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
                     <i data-feather="sun" class="hidden dark:block"></i>
                     <i data-feather="moon" class="dark:hidden"></i>
                 </button>
+                <!-- Botão para abrir/fechar o menu mobile -->
                 <button class="md:hidden" id="mobile-menu-button">
                     <i data-feather="menu"></i>
                 </button>
             </div>
         </div>
         
+        <!-- Menu mobile (oculto por padrão) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
                 <a href="../index.html" class="nav-link font-medium py-2">Home</a>
@@ -75,16 +95,20 @@
         </div>
     </header>
 
+    <!-- Conteúdo principal da página -->
     <main class="pt-32">
         <section class="py-16">
             <div class="container mx-auto px-4">
+                <!-- Título e descrição do quiz -->
                 <div class="text-center mb-12" data-aos="fade-up">
                     <h1 class="text-3xl md:text-4xl font-bold mb-4">Descubra Seu Estilo de Aprendizado</h1>
                     <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">Responda às perguntas para identificar a forma como você aprende melhor e receba recomendações de técnicas de estudo.</p>
                 </div>
 
                 <div class="max-w-3xl mx-auto">
+                    <!-- Formulário do quiz -->
                     <form id="quiz-form" class="space-y-8">
+                        <!-- Pergunta 1 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="100">
                             <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">1. Você aprende melhor quando vê imagens ou quando escuta explicações?</p>
                             <ul class="space-y-3">
@@ -93,6 +117,7 @@
                             </ul>
                         </div>
 
+                        <!-- Pergunta 2 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="200">
                             <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">2. Quando você precisa entender um conteúdo novo, prefere:</p>
                             <ul class="space-y-3">
@@ -101,6 +126,7 @@
                             </ul>
                         </div>
 
+                        <!-- Pergunta 3 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="300">
                            <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">3. Se alguém te ensina algo difícil, o que ajuda mais?</p>
                            <ul class="space-y-3">
@@ -109,6 +135,7 @@
                            </ul>
                         </div>
                         
+                        <!-- Pergunta 4 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="400">
                             <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">4. Durante os estudos, você se sente mais confortável:</p>
                             <ul class="space-y-3">
@@ -117,6 +144,7 @@
                             </ul>
                         </div>
 
+                        <!-- Pergunta 5 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="500">
                             <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">5. Quando precisa memorizar algo importante, você prefere:</p>
                             <ul class="space-y-3">
@@ -125,6 +153,7 @@
                             </ul>
                         </div>
 
+                        <!-- Pergunta 6 -->
                         <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg card-hover" data-aos="fade-up" data-aos-delay="600">
                             <p class="text-xl font-semibold mb-4 text-primary dark:text-purple-300">6. Em um grupo de estudo, você normalmente:</p>
                             <ul class="space-y-3">
@@ -133,14 +162,17 @@
                             </ul>
                         </div>
 
+                        <!-- Botão para ver o resultado do quiz -->
                         <div class="text-center pt-4">
                            <button type="submit" class="bg-primary text-white font-bold py-3 px-8 rounded-lg hover:bg-secondary transition-transform transform hover:scale-105">Ver Resultado</button>
                         </div>
                     </form>
 
+                    <!-- Seção de resultados (oculta por padrão) -->
                     <div id="results-section" class="mt-16 text-center bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg" data-aos="fade-up">
                         <h2 class="text-2xl font-bold mb-4">Seu Resultado</h2>
                         <p id="result" class="text-lg text-text-light dark:text-gray-300 min-h-[3rem]"></p>
+                        <!-- Link para as técnicas recomendadas (oculto por padrão) -->
                         <a href="techniques.html" id="recommendation-link" class="mt-6 inline-block bg-accent text-text-dark font-bold py-3 px-8 rounded-lg hover:bg-yellow-400 transition-transform transform hover:scale-105 hidden">
                             Ver Técnicas Recomendadas
                         </a>
@@ -150,15 +182,17 @@
         </section>
     </main>
 
+    <!-- Rodapé da página -->
     <footer class="py-8">
         <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
             <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../assets/js/script.js"></script>
-    <script src="../assets/js/quizScript.js"></script>
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <!-- Ícones Feather Icons -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Inicialização do AOS para animações -->
+    <script src="../assets/js/script.js"></script> <!-- Script JavaScript principal do projeto -->
+    <script src="../assets/js/quizScript.js"></script> <!-- Script JavaScript específico do quiz -->
 </body>
 </html>

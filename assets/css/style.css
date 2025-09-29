@@ -1,54 +1,65 @@
+/* Importa as diretivas base, componentes e utilitários do Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
+/* Define a fonte padrão para o corpo do documento usando a diretiva @layer base do Tailwind */
 @layer base {
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', sans-serif; /* Aplica a fonte Inter para todo o corpo */
     }
 }
 
+/* Estilo para texto com gradiente */
 .gradient-text {
+    /* Define um gradiente de cor da esquerda para a direita, usando as cores 'primary' e 'accent' definidas no Tailwind config */
     background-image: linear-gradient(to right, theme('colors.primary'), theme('colors.accent'));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    -webkit-background-clip: text; /* Recorta o fundo para o formato do texto (para navegadores WebKit) */
+    background-clip: text; /* Recorta o fundo para o formato do texto */
+    color: transparent; /* Torna o texto transparente para que o gradiente de fundo seja visível */
 }
 
+/* Estilo base para links de navegação */
 .nav-link {
-    position: relative;
-    transition: color 0.3s ease;
+    position: relative; /* Permite posicionar o pseudo-elemento ::after em relação a este link */
+    transition: color 0.3s ease; /* Transição suave para a cor do texto */
 }
 
+/* Pseudo-elemento para criar uma linha de destaque abaixo do link */
 .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: theme('colors.primary');
-    transition: width 0.3s ease;
+    content: ''; /* Conteúdo vazio, necessário para pseudo-elementos */
+    position: absolute; /* Posicionamento absoluto em relação ao .nav-link */
+    width: 0; /* Largura inicial zero (linha invisível) */
+    height: 2px; /* Altura da linha */
+    bottom: -4px; /* Posição abaixo do texto do link */
+    left: 0; /* Alinha a linha à esquerda do link */
+    background-color: theme('colors.primary'); /* Cor da linha, usando a cor 'primary' do Tailwind */
+    transition: width 0.3s ease; /* Transição suave para a largura da linha */
 }
 
+/* Efeito de hover para o link de navegação: a linha se expande */
 .nav-link:hover::after {
-    width: 100%;
+    width: 100%; /* A linha se expande para a largura total do link no hover */
 }
 
+/* Estilo base para cards com efeito de hover */
 .card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transições suaves para transformação e sombra */
 }
 
+/* Efeito de hover para cards: move ligeiramente para cima e adiciona sombra mais forte */
 .card-hover:hover {
-    transform: translateY(-5px);
-    @apply shadow-2xl;
+    transform: translateY(-5px); /* Move o card ligeiramente para cima */
+    @apply shadow-2xl; /* Aplica uma sombra mais forte definida pelo Tailwind */
 }
 
+/* Estilo base para o botão de alternância de tema */
 .theme-toggle {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Transição suave para a transformação */
 }
 
+/* Efeito de hover para o botão de alternância de tema: gira o botão */
 .theme-toggle:hover {
-    transform: rotate(90deg);
+    transform: rotate(90deg); /* Gira o botão em 90 graus no hover */
 }

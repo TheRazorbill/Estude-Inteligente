@@ -47,6 +47,18 @@ Após a resolução do problema funcional, o foco foi direcionado para aprimorar
     *   **Interatividade:** Adição de transições suaves e efeitos de sombra em elementos interativos (botões, links, cards de livros, opções do quiz) para uma experiência de usuário mais engajadora.
     *   **Responsividade:** Revisão e aprimoramento das media queries para garantir que o site seja totalmente responsivo em diferentes tamanhos de tela.
 
+### Desafios na Implementação do Pomodoro e o Papel da IA
+
+A implementação do Pomodoro Timer trouxe alguns desafios interessantes, que foram superados com foco na experiência do usuário e na otimização do código:
+-   **Piscar da Tela ao Alternar Páginas:** Um dos desafios iniciais foi evitar o "piscar" da tela ao alternar entre as páginas de navegação. Isso foi mitigado através de otimizações no carregamento de scripts e estilos, garantindo que as transições de tema e o carregamento de componentes visuais fossem o mais suaves possível.
+-   **Sons e Notificações:** A integração de sons para indicar o início e fim das sessões de estudo e pausas exigiu um cuidado especial para garantir que fossem discretos, mas eficazes, sem serem intrusivos. Foram utilizados diferentes sons para cada fase (estudo, pausa curta, pausa longa e fim de ciclo) para uma melhor diferenciação.
+-   **Design Minimalista:** O objetivo de um design minimalista foi alcançado através do uso consistente do Tailwind CSS, focando em uma paleta de cores coesa, tipografia limpa e espaçamento adequado. A interface do Pomodoro foi projetada para ser intuitiva e livre de distrações, permitindo que o usuário se concentre na tarefa.
+-   **Uso de IA no Desenvolvimento:** A inteligência artificial desempenhou um papel crucial no processo de desenvolvimento, atuando como um assistente de codificação. A IA foi utilizada para:
+    *   **Geração de Comentários:** Auxiliou na criação de comentários detalhados e "humanos" para todo o código HTML, CSS e JavaScript, tornando o projeto mais compreensível e fácil de manter.
+    *   **Refatoração e Otimização:** Sugeriu melhorias de código, identificou padrões e ajudou a refatorar seções para maior eficiência e legibilidade.
+    *   **Debugging:** Contribuiu na identificação e resolução de erros, oferecendo insights e soluções para problemas complexos.
+    *   **Aprimoramento de Design:** Forneceu ideias e sugestões para o design minimalista e aprimoramento da experiência do usuário.
+
 ## Versionamento e Organização do Código
 
 Durante o desenvolvimento, o versionamento foi gerenciado com Git. Houve um momento em que as alterações relacionadas à correção do `TypeError` e as melhorias de CSS foram agrupadas em um único commit na branch `feat/CSS`. Idealmente, a correção do erro e as melhorias de design poderiam ter sido separadas em commits distintos para um histórico mais granular. No entanto, o commit atual reflete um conjunto coeso de melhorias que abordam tanto a funcionalidade quanto a estética do projeto.

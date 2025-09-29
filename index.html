@@ -1,52 +1,71 @@
+<!-- Define o tipo de documento como HTML5 -->
 <!DOCTYPE html>
+<!-- Define o idioma principal da página como Português do Brasil e habilita classes do Tailwind CSS -->
 <html lang="pt-BR" class="">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo.">
+  <!-- Configurações básicas do documento -->
+  <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8, garantindo que acentos e caracteres especiais sejam exibidos corretamente -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura a viewport para responsividade em diferentes dispositivos -->
+  <meta name="description" content="Quer estudar de forma mais inteligente? Aqui você encontra dicas, reflexões e métodos para melhorar seus estudos e aproveitar melhor o tempo."> <!-- Descrição da página para SEO -->
   
+  <!-- Script para gerenciar o tema (claro/escuro) -->
   <script>
+    // Verifica se o tema 'dark' está salvo no localStorage ou se o sistema operacional prefere o tema escuro
     if (
-      localStorage.getItem('theme') === 'dark' || 
+      localStorage.getItem('theme') === 'dark' ||
       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
+      // Se sim, adiciona a classe 'dark' ao elemento <html> para ativar o tema escuro
       document.documentElement.classList.add('dark');
     } else {
+      // Caso contrário, remove a classe 'dark' para garantir o tema claro
       document.documentElement.classList.remove('dark');
     }
   </script>
 
+  <!-- Importa o framework Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Configurações personalizadas do Tailwind CSS -->
   <script>
     tailwind.config = {
-      darkMode: 'class',
+      darkMode: 'class', // Habilita o dark mode baseado na classe 'dark' no HTML
       theme: {
         extend: {
           colors: {
-            'primary': '#6A0572',
-            'secondary': '#8E299C',
-            'accent': '#FFD700',
-            'text-dark': '#2C3E50',
-            'text-light': '#7F8C8D',
+            // Define cores personalizadas para o projeto
+            'primary': '#6A0572', // Cor principal (roxo escuro)
+            'secondary': '#8E299C', // Cor secundária (roxo médio)
+            'accent': '#FFD700', // Cor de destaque (amarelo ouro)
+            'text-dark': '#2C3E50', // Cor do texto para tema claro
+            'text-light': '#7F8C8D', // Cor do texto mais suave para tema claro
           }
         }
       }
     }
   </script>
+  <!-- Importa a biblioteca AOS (Animate On Scroll) para animações ao rolar a página -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Importa a fonte 'Inter' do Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Link para o arquivo CSS personalizado do projeto -->
   <link rel="stylesheet" href="assets/css/style.css">
   
+  <!-- Título da página exibido na aba do navegador -->
   <title>Estude + Inteligente - Home</title>
 </head>
+<!-- Corpo da página, com classes Tailwind para estilo base e transição de cores para o tema -->
 <body class="bg-gray-100 text-text-dark dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Cabeçalho fixo da página -->
     <header class="fixed w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+        <!-- Container principal do cabeçalho -->
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo e nome do site -->
             <a href="index.html" class="flex items-center space-x-3">
                 <img src="assets/img/logo.png" alt="Logo Estude + Inteligente" class="w-10 h-10">
                 <span class="text-xl font-bold gradient-text">Estude + Inteligente</span>
             </a>
             
+            <!-- Navegação principal para telas maiores (desktop) -->
             <nav class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Home</a>
                 <a href="sobre.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Sobre</a>
@@ -55,17 +74,21 @@
                 <a href="pomodoro.html" class="nav-link font-medium text-text-dark dark:text-gray-200">Pomodoro</a>
             </nav>
             
+            <!-- Botões de alternância de tema e menu mobile -->
             <div class="flex items-center space-x-4">
+                <!-- Botão para alternar entre tema claro e escuro -->
                 <button id="theme-toggle" class="theme-toggle p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <i data-feather="sun" class="hidden dark:block"></i>
-                    <i data-feather="moon" class="dark:hidden"></i>
+                    <i data-feather="sun" class="hidden dark:block"></i> <!-- Ícone de sol (visível no tema escuro) -->
+                    <i data-feather="moon" class="dark:hidden"></i> <!-- Ícone de lua (visível no tema claro) -->
                 </button>
+                <!-- Botão para abrir/fechar o menu mobile (visível apenas em telas pequenas) -->
                 <button class="md:hidden" id="mobile-menu-button">
-                    <i data-feather="menu"></i>
+                    <i data-feather="menu"></i> <!-- Ícone de menu hambúrguer -->
                 </button>
             </div>
         </div>
         
+        <!-- Menu mobile (oculto por padrão, exibido via JavaScript) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 shadow-lg">
             <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
                 <a href="index.html" class="nav-link font-medium py-2">Home</a>
@@ -77,7 +100,9 @@
         </div>
     </header>
 
+    <!-- Conteúdo principal da página -->
     <main class="pt-32">
+        <!-- Seção inicial da Home -->
         <section id="home" class="py-16">
             <div class="container mx-auto px-4 text-center" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Quer começar sua jornada de estudos mas não sabe como?</h2>
@@ -87,6 +112,7 @@
             </div>
         </section>
         
+        <!-- Seção de pesquisa de livros (integração com Open Library) -->
         <section id="book-search" class="py-16 bg-white dark:bg-gray-800">
             <div class="container mx-auto px-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-center mb-12">
@@ -94,25 +120,29 @@
                     <p class="text-lg text-text-light dark:text-gray-300 max-w-3xl mx-auto">Encontre materiais de estudo para aprofundar seu conhecimento.</p>
                 </div>
 
+                <!-- Campo de busca e botão -->
                 <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-4 mb-12">
                     <input type="text" id="book-search-input" placeholder="Digite o título do livro..." class="flex-grow p-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-accent transition">
                     <button id="book-search-button" class="bg-primary text-white font-bold py-3 px-6 rounded-lg hover:bg-secondary transition-transform transform hover:scale-105">Buscar Livros</button>
                 </div>
                 
+                <!-- Área onde os resultados da pesquisa de livros serão exibidos -->
                 <div id="book-search-results">
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Rodapé da página -->
     <footer class="py-8">
         <div class="container mx-auto px-4 text-center text-gray-500 dark:text-gray-400">
             <p>© 2025 Estude + Inteligente. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/script.js"></script>
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <!-- Ícones Feather Icons -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Inicialização do AOS para animações -->
+    <script src="assets/js/script.js"></script> <!-- Script JavaScript principal do projeto -->
 </body>
 </html>

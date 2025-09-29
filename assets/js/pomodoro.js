@@ -1,54 +1,71 @@
+// Garante que o script só será executado após o carregamento completo do DOM
 document.addEventListener('DOMContentLoaded', () => {
 
-    const sound1 = new Audio('assets/sound/sound1.mp3');
-    const sound2 = new Audio('assets/sound/sound2.mp3');
-    const sound3 = new Audio('assets/sound/sound3.mp3');
+    // Carrega os arquivos de áudio para notificações do Pomodoro
+    const sound1 = new Audio('assets/sound/sound1.mp3'); // Som para início/fim de sessões curtas
+    const sound2 = new Audio('assets/sound/sound2.mp3'); // Som para fim de pausa longa
+    const sound3 = new Audio('assets/sound/sound3.mp3'); // Som para fim de ciclo completo
 
-    const minutesDisplay = document.getElementById('minutes');
-    const secondsDisplay = document.getElementById('seconds');
-    const startBtn = document.getElementById('start-btn');
-    const pauseBtn = document.getElementById('pause-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const completeRoundBtn = document.getElementById('complete-round-btn');
-    const sessionTypeDisplay = document.getElementById('session-type');
-    const progressIndicator = document.getElementById('progress-indicator');
-
-    const studyTimeInput = document.getElementById('study-time');
-    const shortBreakTimeInput = document.getElementById('short-break-time');
-    const longBreakTimeInput = document.getElementById('long-break-time');
-    const longBreakIntervalInput = document.getElementById('long-break-interval');
-    const totalSessionsInput = document.getElementById('total-sessions');
-    const saveTimeSettingsBtn = document.getElementById('save-time-settings');
-
-    const settingsBtn = document.getElementById('settings-btn');
-    const settingsModal = document.getElementById('settings-modal');
-    const closeSettingsBtn = document.getElementById('close-settings-btn');
+    // Seleciona os elementos do DOM relacionados ao timer
+    const minutesDisplay = document.getElementById('minutes'); // Exibe os minutos
+    const secondsDisplay = document.getElementById('seconds'); // Exibe os segundos
+    const startBtn = document.getElementById('start-btn'); // Botão de iniciar
+    const pauseBtn = document.getElementById('pause-btn'); // Botão de pausar
+    const resetBtn = document.getElementById('reset-btn'); // Botão de reiniciar
+    const completeRoundBtn = document.getElementById('complete-round-btn'); // Botão para concluir rodada manualmente
+    const sessionTypeDisplay = document.getElementById('session-type'); // Exibe o tipo de sessão (Estudo, Pausa Curta, Pausa Longa)
+    const progressIndicator = document.getElementById('progress-indicator'); // Indicador visual de progresso das rodadas
     
-    const inputTarefa = document.getElementById('tarefa');
-    const botaoAdicionar = document.getElementById('adicionar');
-    const listaTarefas = document.getElementById('lista-tarefas');
+    // Áreas do timer para manipulação de visibilidade e conteúdo
+    const timerDisplayArea = document.getElementById('timer-display-area'); // Área onde o tempo é exibido
+    const progressIndicatorArea = document.getElementById('progress-indicator-area'); // Área do indicador de progresso
+    const buttonsArea = document.getElementById('buttons-area'); // Área dos botões de controle do timer
+    const sessionInfoArea = document.getElementById('session-info-area'); // Área de informações da sessão
 
-    let timer;
-    let timeLeft;
-    let currentPhase = 'study';
-    let studySessionCount = 0;
-    let totalStudySessions = 6;
-    let longBreakInterval = 3;
-    let defaultStudyTime = 25 * 60;
-    let defaultShortBreakTime = 5 * 60;
-    let defaultLongBreakTime = 15 * 60;
-    const originalTitle = document.title;
+    // Elementos do DOM relacionados às configurações do timer
+    const studyTimeInput = document.getElementById('study-time'); // Input para tempo de estudo
+    const shortBreakTimeInput = document.getElementById('short-break-time'); // Input para tempo de pausa curta
+    const longBreakTimeInput = document.getElementById('long-break-time'); // Input para tempo de pausa longa
+    const longBreakIntervalInput = document.getElementById('long-break-interval'); // Input para intervalo de pausa longa
+    const totalSessionsInput = document.getElementById('total-sessions'); // Input para total de sessões no ciclo
+    const saveTimeSettingsBtn = document.getElementById('save-time-settings'); // Botão para salvar configurações
 
-    function openSettingsModal() { settingsModal.classList.remove('hidden'); }
-    function closeSettingsModal() { settingsModal.classList.add('hidden'); }
+    // Elementos do DOM relacionados ao modal de configurações
+    const settingsBtn = document.getElementById('settings-btn'); // Botão para abrir o modal de configurações
+    const settingsModal = document.getElementById('settings-modal'); // O modal de configurações
+    const closeSettingsBtn = document.getElementById('close-settings-btn'); // Botão para fechar o modal
 
+    // Elementos do DOM relacionados à lista de tarefas
+    const inputTarefa = document.getElementById('tarefa'); // Input para adicionar nova tarefa
+    const botaoAdicionar = document.getElementById('adicionar'); // Botão para adicionar tarefa
+    const listaTarefas = document.getElementById('lista-tarefas'); // Lista onde as tarefas são exibidas
+
+    // Variáveis de estado do Pomodoro
+    let timer; // Variável para armazenar o ID do setInterval do timer
+    let timeLeft; // Tempo restante em segundos
+    let currentPhase = 'study'; // Fase atual do Pomodoro ('study', 'short-break', 'long-break')
+    let studySessionCount = 0; // Contador de sessões de estudo concluídas
+    let totalStudySessions = 6; // Número total de sessões de estudo em um ciclo
+    let longBreakInterval = 3; // Quantas sessões de estudo antes de uma pausa longa
+    let defaultStudyTime = 25 * 60; // Tempo padrão de estudo em segundos (25 minutos)
+    let defaultShortBreakTime = 5 * 60; // Tempo padrão de pausa curta em segundos (5 minutos)
+    let defaultLongBreakTime = 15 * 60; // Tempo padrão de pausa longa em segundos (15 minutos)
+    const originalTitle = document.title; // Título original da página para restaurar
+    let isCycleEnded = false; // Flag para indicar se o ciclo Pomodoro terminou
+
+    // Funções para controlar a visibilidade do modal de configurações
+    function openSettingsModal() { settingsModal.classList.remove('hidden'); } // Remove a classe 'hidden' para exibir o modal
+    function closeSettingsModal() { settingsModal.classList.add('hidden'); } // Adiciona a classe 'hidden' para ocultar o modal
+
+    // Carrega as configurações salvas no localStorage ou usa valores padrão
     function loadSettings() {
-        defaultStudyTime = parseInt(localStorage.getItem('studyTime') || '25') * 60;
-        defaultShortBreakTime = parseInt(localStorage.getItem('shortBreakTime') || '5') * 60;
-        defaultLongBreakTime = parseInt(localStorage.getItem('longBreakTime') || '15') * 60;
-        longBreakInterval = parseInt(localStorage.getItem('longBreakInterval') || '3');
-        totalStudySessions = parseInt(localStorage.getItem('totalSessions') || '6');
+        defaultStudyTime = parseInt(localStorage.getItem('studyTime') || '25') * 60; // Tempo de estudo
+        defaultShortBreakTime = parseInt(localStorage.getItem('shortBreakTime') || '5') * 60; // Tempo de pausa curta
+        defaultLongBreakTime = parseInt(localStorage.getItem('longBreakTime') || '15') * 60; // Tempo de pausa longa
+        longBreakInterval = parseInt(localStorage.getItem('longBreakInterval') || '3'); // Intervalo para pausa longa
+        totalStudySessions = parseInt(localStorage.getItem('totalSessions') || '6'); // Total de sessões
 
+        // Atualiza os inputs do modal com os valores carregados
         studyTimeInput.value = defaultStudyTime / 60;
         shortBreakTimeInput.value = defaultShortBreakTime / 60;
         longBreakTimeInput.value = defaultLongBreakTime / 60;
@@ -56,28 +73,32 @@ document.addEventListener('DOMContentLoaded', () => {
         totalSessionsInput.value = totalStudySessions;
     }
 
+    // Salva as configurações atuais no localStorage
     function saveSettings() {
         localStorage.setItem('studyTime', studyTimeInput.value);
         localStorage.setItem('shortBreakTime', shortBreakTimeInput.value);
         localStorage.setItem('longBreakTime', longBreakTimeInput.value);
         localStorage.setItem('longBreakInterval', longBreakIntervalInput.value);
         localStorage.setItem('totalSessions', totalSessionsInput.value);
-        loadSettings();
+        loadSettings(); // Recarrega as configurações para aplicar as mudanças
     }
 
+    // Renderiza o indicador visual de progresso das rodadas
     function renderProgressIndicator() {
-        progressIndicator.innerHTML = '';
+        progressIndicator.innerHTML = ''; // Limpa o indicador existente
         for (let i = 1; i <= totalStudySessions; i++) {
             const roundElement = document.createElement('div');
             roundElement.className = 'w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600 transition-all';
             
+            // Destaca as rodadas concluídas e a rodada atual de estudo
             if (i <= studySessionCount) {
-                roundElement.classList.add('bg-primary');
+                roundElement.classList.add('bg-primary'); // Rodada concluída
             } else if (i === studySessionCount + 1 && currentPhase === 'study') {
-                roundElement.classList.add('ring-2', 'ring-offset-2', 'dark:ring-offset-gray-800', 'ring-primary');
+                roundElement.classList.add('ring-2', 'ring-offset-2', 'dark:ring-offset-gray-800', 'ring-primary'); // Rodada atual de estudo
             }
             progressIndicator.appendChild(roundElement);
 
+            // Adiciona um separador para indicar pausas longas
             if (i > 0 && i % longBreakInterval === 0 && i < totalStudySessions) {
                 const breakElement = document.createElement('div');
                 breakElement.className = 'w-4 h-4 rounded-sm bg-gray-400 dark:bg-gray-500';
@@ -86,62 +107,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Atualiza a exibição do timer e o título da página
     function updateDisplay() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        minutesDisplay.textContent = String(minutes).padStart(2, '0');
-        secondsDisplay.textContent = String(seconds).padStart(2, '0');
-        sessionTypeDisplay.textContent = getPhaseName(currentPhase);
-        document.title = `${minutesDisplay.textContent}:${secondsDisplay.textContent} - ${getPhaseName(currentPhase)}`;
-        renderProgressIndicator();
+        const minutes = Math.floor(timeLeft / 60); // Calcula os minutos restantes
+        const seconds = timeLeft % 60; // Calcula os segundos restantes
+        
+        const minutesSpan = document.getElementById('minutes');
+        const secondsSpan = document.getElementById('seconds');
+        
+        if(minutesSpan && secondsSpan) {
+            // Atualiza os elementos de exibição de minutos e segundos, formatando com zero à esquerda
+            minutesSpan.textContent = String(minutes).padStart(2, '0');
+            secondsSpan.textContent = String(seconds).padStart(2, '0');
+        }
+        
+        sessionTypeDisplay.textContent = getPhaseName(currentPhase); // Atualiza o tipo de sessão
+        document.title = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} - ${getPhaseName(currentPhase)}`; // Atualiza o título da página
+        renderProgressIndicator(); // Atualiza o indicador de progresso
     }
 
+    // Retorna o nome amigável da fase atual do Pomodoro
     function getPhaseName(phase) {
         switch (phase) {
             case 'study': return 'Estudo';
             case 'short-break': return 'Pausa Curta';
             case 'long-break': return 'Pausa Longa';
-            default: return 'Pomodoro';
+            default: return 'Pomodoro'; // Caso padrão
         }
     }
 
+    // Inicia ou retoma o timer
     function startTimer() {
-        clearInterval(timer);
+        if(isCycleEnded) { // Se o ciclo anterior terminou, reinicia o timer
+            resetTimer();
+        }
+        clearInterval(timer); // Limpa qualquer timer existente para evitar múltiplos timers
+        isCycleEnded = false; // Reseta a flag de ciclo encerrado
+
+        if (timeLeft === undefined || timeLeft === null) {
+            timeLeft = defaultStudyTime; // Define o tempo inicial se não houver tempo restante
+        }
+
+        // Inicia o contador regressivo
         timer = setInterval(() => {
-            timeLeft--;
-            updateDisplay();
+            timeLeft--; // Decrementa o tempo restante
+            updateDisplay(); // Atualiza a exibição
             if (timeLeft < 0) {
-                handleTimerEnd();
+                handleTimerEnd(); // Lida com o fim do timer
             }
-        }, 1000);
+        }, 1000); // Atualiza a cada segundo (1000ms)
     }
 
+    // Pausa o timer
     function pauseTimer() {
-        clearInterval(timer);
+        clearInterval(timer); // Para o setInterval
     }
 
+    // Reinicia o timer para o estado inicial
     function resetTimer() {
-        clearInterval(timer);
-        currentPhase = 'study';
-        studySessionCount = 0;
-        timeLeft = defaultStudyTime;
-        document.title = originalTitle;
-        updateDisplay();
+        clearInterval(timer); // Para o setInterval
+        currentPhase = 'study'; // Volta para a fase de estudo
+        studySessionCount = 0; // Zera o contador de sessões de estudo
+        timeLeft = defaultStudyTime; // Define o tempo para o padrão de estudo
+        document.title = originalTitle; // Restaura o título original da página
+        isCycleEnded = false; // Reseta a flag de ciclo encerrado
+        restoreUI(); // Restaura a interface do usuário
+        updateDisplay(); // Atualiza a exibição
     }
 
+    // Lida com o fim de cada período do timer (estudo, pausa curta, pausa longa)
     function handleTimerEnd() {
-        clearInterval(timer);
-        const phaseEnding = currentPhase;
+        clearInterval(timer); // Para o timer atual
+        const phaseEnding = currentPhase; // Armazena a fase que está terminando
+
         if (phaseEnding === 'study') {
-            studySessionCount++;
-            if (studySessionCount === totalStudySessions) {
-                sound3.play();
-                alert('Ciclo de Pomodoro completo!');
-                resetTimer();
+            studySessionCount++; // Incrementa o contador de sessões de estudo
+            if (studySessionCount >= totalStudySessions) {
+                endCycle(); // Se todas as sessões foram concluídas, encerra o ciclo
                 return;
             }
 
-            sound1.play();
+            sound1.play(); // Toca um som para indicar o fim da sessão de estudo
+            // Decide se a próxima fase é pausa longa ou curta
             if (studySessionCount % longBreakInterval === 0) {
                 currentPhase = 'long-break';
                 timeLeft = defaultLongBreakTime;
@@ -150,45 +197,154 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeLeft = defaultShortBreakTime;
             }
         } else {
-            if(phaseEnding === 'long-break') {
-                sound2.play();
-            } else {
-                sound1.play();
-            }
-            currentPhase = 'study';
-            timeLeft = defaultStudyTime;
+            // Toca sons diferentes para o fim da pausa longa ou curta
+            if (phaseEnding === 'long-break') sound2.play();
+            else sound1.play();
+            
+            currentPhase = 'study'; // Volta para a fase de estudo
+            timeLeft = defaultStudyTime; // Define o tempo para o padrão de estudo
         }
         
-        updateDisplay();
-        startTimer();
+        updateDisplay(); // Atualiza a exibição para a nova fase
+        startTimer(); // Inicia o timer para a próxima fase
     }
 
-    function criarElementoTarefa(tarefa) { const novaTarefa = document.createElement('li'); novaTarefa.className = 'flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700'; const spanTarefa = document.createElement('span'); spanTarefa.textContent = tarefa.texto; if (tarefa.concluida) { spanTarefa.classList.add('concluida'); } const divBotoes = document.createElement('div'); divBotoes.className = 'flex gap-2'; const botaoConcluir = document.createElement('button'); botaoConcluir.textContent = 'Concluir'; botaoConcluir.className = 'px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm'; botaoConcluir.addEventListener('click', () => { spanTarefa.classList.toggle('concluida'); salvarTarefas(); }); const botaoRemover = document.createElement('button'); botaoRemover.textContent = 'Remover'; botaoRemover.className = 'px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm'; botaoRemover.addEventListener('click', () => { listaTarefas.removeChild(novaTarefa); salvarTarefas(); }); divBotoes.appendChild(botaoConcluir); divBotoes.appendChild(botaoRemover); novaTarefa.appendChild(spanTarefa); novaTarefa.appendChild(divBotoes); return novaTarefa; }
-    function adicionarTarefa() { const textoTarefa = inputTarefa.value.trim(); if (textoTarefa === '') return; const tarefa = { texto: textoTarefa, concluida: false }; const elementoTarefa = criarElementoTarefa(tarefa); listaTarefas.appendChild(elementoTarefa); inputTarefa.value = ''; inputTarefa.focus(); salvarTarefas(); }
-    function salvarTarefas() { const tarefas = []; document.querySelectorAll('#lista-tarefas li').forEach(item => { const textoTarefa = item.querySelector('span').textContent; const concluida = item.querySelector('span').classList.contains('concluida'); tarefas.push({ texto: textoTarefa, concluida: concluida }); }); localStorage.setItem('tarefas', JSON.stringify(tarefas)); }
-    function carregarTarefas() { const tarefasSalvas = localStorage.getItem('tarefas'); if (!tarefasSalvas) return; const tarefas = JSON.parse(tarefasSalvas); tarefas.forEach(tarefa => { const elementoTarefa = criarElementoTarefa(tarefa); listaTarefas.appendChild(elementoTarefa); }); }
+    // Encerra o ciclo completo do Pomodoro
+    function endCycle() {
+        sound3.play(); // Toca um som especial para o fim do ciclo
+        isCycleEnded = true; // Define a flag de ciclo encerrado
+        clearInterval(timer); // Para o timer
 
-    settingsBtn.addEventListener('click', openSettingsModal);
-    closeSettingsBtn.addEventListener('click', closeSettingsModal);
-    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); });
+        // Atualiza a interface para mostrar que a sessão foi encerrada
+        timerDisplayArea.innerHTML = `<span class="text-3xl md:text-4xl font-bold">Sessão Encerrada</span>`;
+        progressIndicatorArea.classList.add('hidden'); // Oculta o indicador de progresso
+        sessionInfoArea.classList.add('hidden'); // Oculta as informações da sessão
 
-    startBtn.addEventListener('click', startTimer);
-    pauseBtn.addEventListener('click', pauseTimer);
-    resetBtn.addEventListener('click', resetTimer);
+        // Altera o botão para "Iniciar Novo Ciclo"
+        const startBtnHTML = `<button id="start-btn" class="px-6 py-3 rounded-lg bg-primary text-white hover:bg-secondary transition-colors ring-2 ring-offset-2 ring-primary animate-pulse">Iniciar Novo Ciclo</button>`;
+        buttonsArea.innerHTML = startBtnHTML;
+        document.getElementById('start-btn').addEventListener('click', startTimer); // Adiciona o event listener ao novo botão
+    }
     
-    completeRoundBtn.addEventListener('click', () => {
-        handleTimerEnd();
-    });
+    // Restaura a interface do usuário para o estado inicial do timer
+    function restoreUI() {
+        // Restaura a exibição do timer
+        timerDisplayArea.innerHTML = `<span id="minutes">25</span>:<span id="seconds">00</span>`;
+        progressIndicatorArea.classList.remove('hidden'); // Exibe o indicador de progresso
+        sessionInfoArea.classList.remove('hidden'); // Exibe as informações da sessão
 
+        // Restaura os botões de controle do timer
+        buttonsArea.innerHTML = `
+            <button id="start-btn" class="px-5 py-2 rounded-lg bg-primary text-white hover:bg-secondary transition-colors">Iniciar</button>
+            <button id="pause-btn" class="px-5 py-2 rounded-lg bg-gray-400 text-white hover:bg-gray-500 transition-colors">Pausar</button>
+            <button id="reset-btn" class="px-5 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors">Reiniciar</button>
+            <button id="complete-round-btn" class="px-5 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors">Concluir Rodada</button>
+        `;
+        
+        // Reatribui os event listeners aos botões restaurados
+        document.getElementById('start-btn').addEventListener('click', startTimer);
+        document.getElementById('pause-btn').addEventListener('click', pauseTimer);
+        document.getElementById('reset-btn').addEventListener('click', resetTimer);
+        document.getElementById('complete-round-btn').addEventListener('click', handleTimerEnd);
+    }
+
+
+    // Função para criar um elemento de tarefa na lista
+    function criarElementoTarefa(tarefa) {
+        const novaTarefa = document.createElement('li'); // Cria um novo item de lista
+        novaTarefa.className = 'flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700'; // Classes Tailwind para estilo
+
+        const spanTarefa = document.createElement('span'); // Cria um span para o texto da tarefa
+        spanTarefa.textContent = tarefa.texto; // Define o texto da tarefa
+        if (tarefa.concluida) {
+            spanTarefa.classList.add('concluida'); // Adiciona classe se a tarefa estiver concluída
+        }
+
+        const divBotoes = document.createElement('div'); // Cria uma div para os botões de ação
+        divBotoes.className = 'flex gap-2'; // Classes Tailwind para estilo
+
+        const botaoConcluir = document.createElement('button'); // Botão de concluir
+        botaoConcluir.textContent = 'Concluir'; // Texto do botão
+        botaoConcluir.className = 'px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm'; // Classes Tailwind para estilo
+        botaoConcluir.addEventListener('click', () => {
+            spanTarefa.classList.toggle('concluida'); // Alterna a classe 'concluida'
+            salvarTarefas(); // Salva as tarefas após a alteração
+        });
+
+        const botaoRemover = document.createElement('button'); // Botão de remover
+        botaoRemover.textContent = 'Remover'; // Texto do botão
+        botaoRemover.className = 'px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm'; // Classes Tailwind para estilo
+        botaoRemover.addEventListener('click', () => {
+            listaTarefas.removeChild(novaTarefa); // Remove a tarefa da lista
+            salvarTarefas(); // Salva as tarefas após a remoção
+        });
+
+        divBotoes.appendChild(botaoConcluir); // Adiciona o botão de concluir à div de botões
+        divBotoes.appendChild(botaoRemover); // Adiciona o botão de remover à div de botões
+        novaTarefa.appendChild(spanTarefa); // Adiciona o texto da tarefa ao item da lista
+        novaTarefa.appendChild(divBotoes); // Adiciona a div de botões ao item da lista
+        return novaTarefa; // Retorna o elemento da nova tarefa
+    }
+
+    // Função para adicionar uma nova tarefa à lista
+    function adicionarTarefa() {
+        const textoTarefa = inputTarefa.value.trim(); // Obtém o texto do input e remove espaços em branco
+        if (textoTarefa === '') return; // Não adiciona tarefa vazia
+
+        const tarefa = { texto: textoTarefa, concluida: false }; // Cria um objeto tarefa
+        const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento HTML da tarefa
+        listaTarefas.appendChild(elementoTarefa); // Adiciona a tarefa à lista no DOM
+        inputTarefa.value = ''; // Limpa o input
+        inputTarefa.focus(); // Foca no input para adicionar outra tarefa
+        salvarTarefas(); // Salva as tarefas no localStorage
+    }
+
+    // Função para salvar todas as tarefas no localStorage
+    function salvarTarefas() {
+        const tarefas = []; // Array para armazenar as tarefas
+        document.querySelectorAll('#lista-tarefas li').forEach(item => {
+            const textoTarefa = item.querySelector('span').textContent; // Obtém o texto da tarefa
+            const concluida = item.querySelector('span').classList.contains('concluida'); // Verifica se a tarefa está concluída
+            tarefas.push({ texto: textoTarefa, concluida: concluida }); // Adiciona a tarefa ao array
+        });
+        localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Salva o array de tarefas como string JSON no localStorage
+    }
+
+    // Função para carregar tarefas do localStorage e exibi-las
+    function carregarTarefas() {
+        const tarefasSalvas = localStorage.getItem('tarefas'); // Obtém as tarefas salvas do localStorage
+        if (!tarefasSalvas) return; // Se não houver tarefas salvas, não faz nada
+
+        const tarefas = JSON.parse(tarefasSalvas); // Converte a string JSON de volta para um array de objetos
+        tarefas.forEach(tarefa => {
+            const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento HTML para cada tarefa
+            listaTarefas.appendChild(elementoTarefa); // Adiciona a tarefa à lista no DOM
+        });
+    }
+
+    // Adiciona event listeners para os botões e o modal de configurações
+    settingsBtn.addEventListener('click', openSettingsModal); // Abre o modal ao clicar no botão de configurações
+    closeSettingsBtn.addEventListener('click', closeSettingsModal); // Fecha o modal ao clicar no botão de fechar
+    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); }); // Fecha o modal ao clicar fora dele
+
+    // Adiciona event listeners para os botões de controle do timer
+    document.getElementById('start-btn').addEventListener('click', startTimer); // Inicia o timer
+    document.getElementById('pause-btn').addEventListener('click', pauseTimer); // Pausa o timer
+    document.getElementById('reset-btn').addEventListener('click', resetTimer); // Reinicia o timer
+    document.getElementById('complete-round-btn').addEventListener('click', handleTimerEnd); // Conclui a rodada atual
+
+    // Adiciona event listener para o botão de salvar configurações
     saveTimeSettingsBtn.addEventListener('click', () => {
-        saveSettings();
-        resetTimer();
-        closeSettingsModal();
+        saveSettings(); // Salva as configurações
+        resetTimer(); // Reinicia o timer para aplicar as novas configurações
+        closeSettingsModal(); // Fecha o modal de configurações
     });
 
-    botaoAdicionar.addEventListener('click', adicionarTarefa);
-    inputTarefa.addEventListener('keypress', e => { if (e.key === 'Enter') adicionarTarefa(); });
-    
+    // Adiciona event listeners para a lista de tarefas
+    botaoAdicionar.addEventListener('click', adicionarTarefa); // Adiciona tarefa ao clicar no botão
+    inputTarefa.addEventListener('keypress', e => { if (e.key === 'Enter') adicionarTarefa(); }); // Adiciona tarefa ao pressionar Enter no input
+
+    // Inicializa as configurações, carrega as tarefas e reinicia o timer ao carregar a página
     loadSettings();
     carregarTarefas();
     resetTimer();

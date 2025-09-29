@@ -1,199 +1,220 @@
+/* Define variáveis CSS para cores e fontes, facilitando a manutenção e padronização do design */
 :root {
-    --primary-color: #6A0572; 
-    --secondary-color: #8E299C; 
-    --accent-color: #FFD700; 
-    --text-color: #2C3E50; 
-    --light-text-color: #7F8C8D; 
-    --background-color: #F8F9FA; 
-    --card-background: #FFFFFF; 
-    --border-color: #E0E0E0; 
-    --shadow-light: rgba(0, 0, 0, 0.04);
-    --shadow-medium: rgba(0, 0, 0, 0.08);
-    --shadow-strong: rgba(0, 0, 0, 0.12);
-    --font-family: 'Roboto', sans-serif;
+    --primary-color: #6A0572; /* Cor principal: um tom de roxo escuro */
+    --secondary-color: #8E299C; /* Cor secundária: um tom de roxo médio */
+    --accent-color: #FFD700; /* Cor de destaque: amarelo ouro */
+    --text-color: #2C3E50; /* Cor padrão para textos em tema claro */
+    --light-text-color: #7F8C8D; /* Cor para textos mais suaves em tema claro */
+    --background-color: #F8F9FA; /* Cor de fundo principal da página em tema claro */
+    --card-background: #FFFFFF; /* Cor de fundo para cards e blocos de conteúdo em tema claro */
+    --border-color: #E0E0E0; /* Cor padrão para bordas */
+    --shadow-light: rgba(0, 0, 0, 0.04); /* Sombra leve para elementos */
+    --shadow-medium: rgba(0, 0, 0, 0.08); /* Sombra média para elementos */
+    --shadow-strong: rgba(0, 0, 0, 0.12); /* Sombra forte para elementos */
+    --font-family: 'Roboto', sans-serif; /* Família de fonte padrão */
 }
 
+/* Reset básico de CSS para remover margens e preenchimentos padrão dos navegadores */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura total do elemento */
 }
 
+/* Estilos globais para o corpo da página */
 body {
-    font-family: var(--font-family);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6; 
-    padding: 1.5rem;
-    font-size: 16px;
+    font-family: var(--font-family); /* Aplica a fonte definida na variável */
+    background-color: var(--background-color); /* Aplica a cor de fundo definida */
+    color: var(--text-color); /* Aplica a cor do texto definida */
+    line-height: 1.6; /* Espaçamento entre linhas para melhor legibilidade */
+    padding: 1.5rem; /* Preenchimento interno em toda a página */
+    font-size: 16px; /* Tamanho de fonte base */
 }
 
+/* Estilo para o título principal (h1) */
 h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-    font-size: 2.5rem; 
-    font-weight: 700;
-    letter-spacing: -0.5px; 
+    text-align: center; /* Centraliza o texto */
+    margin-bottom: 2rem; /* Margem inferior */
+    color: var(--primary-color); /* Cor do título */
+    font-size: 2.5rem; /* Tamanho da fonte */
+    font-weight: 700; /* Peso da fonte (negrito) */
+    letter-spacing: -0.5px; /* Espaçamento entre letras */
 }
 
+/* Estilo para a seção de botão "Voltar" */
 .voltar {
-    margin-bottom: 2.5rem;
-    text-align: center;
+    margin-bottom: 2.5rem; /* Margem inferior */
+    text-align: center; /* Centraliza o conteúdo */
 }
 
+/* Estilo para o link dentro da seção "Voltar" */
 .voltar a {
-    text-decoration: none;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.8rem 1.5rem; 
-    border-radius: 8px; 
-    font-weight: 600; 
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px var(--shadow-medium); 
+    text-decoration: none; /* Remove sublinhado do link */
+    background-color: var(--primary-color); /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    padding: 0.8rem 1.5rem; /* Preenchimento interno */
+    border-radius: 8px; /* Borda arredondada */
+    font-weight: 600; /* Peso da fonte */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves para hover */
+    box-shadow: 0 4px 10px var(--shadow-medium); /* Sombra para o botão */
 }
 
+/* Efeito de hover para o botão "Voltar" */
 .voltar a:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 12px var(--shadow-medium); 
+    background-color: var(--secondary-color); /* Altera a cor de fundo no hover */
+    transform: translateY(-2px); /* Move o botão ligeiramente para cima */
+    box-shadow: 0 6px 12px var(--shadow-medium); /* Aumenta a sombra no hover */
 }
 
+/* Estilo para o bloco de instruções do quiz */
 .instructions {
-    background-color: #eef2f7; 
-    padding: 1.8rem; 
-    border-left: 6px solid var(--primary-color);
-    border-radius: 10px; 
-    margin-bottom: 2.5rem;
-    box-shadow: 0 4px 12px var(--shadow-light); 
+    background-color: #eef2f7; /* Cor de fundo suave */
+    padding: 1.8rem; /* Preenchimento interno */
+    border-left: 6px solid var(--primary-color); /* Borda esquerda colorida para destaque */
+    border-radius: 10px; /* Borda arredondada */
+    margin-bottom: 2.5rem; /* Margem inferior */
+    box-shadow: 0 4px 12px var(--shadow-light); /* Sombra leve */
 }
 
+/* Estilo para cada bloco de pergunta do quiz */
 .question-block {
-    background: var(--card-background);
-    padding: 2rem; 
-    margin-bottom: 2.5rem; 
-    border-radius: 12px; 
-    box-shadow: 0 6px 20px var(--shadow-medium); 
+    background: var(--card-background); /* Cor de fundo do card */
+    padding: 2rem; /* Preenchimento interno */
+    margin-bottom: 2.5rem; /* Margem inferior */
+    border-radius: 12px; /* Borda arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra média */
 }
 
+/* Estilo para o texto da pergunta */
 .question {
-    font-weight: 600;
-    margin-bottom: 1.5rem; 
-    font-size: 1.25rem; 
-    color: var(--primary-color);
+    font-weight: 600; /* Peso da fonte */
+    margin-bottom: 1.5rem; /* Margem inferior */
+    font-size: 1.25rem; /* Tamanho da fonte */
+    color: var(--primary-color); /* Cor do texto da pergunta */
 }
 
+/* Estilo para a lista de opções de resposta */
 .options {
-    list-style: none;
+    list-style: none; /* Remove marcadores de lista */
 }
 
+/* Estilo para cada item da opção de resposta */
 .option-item {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.8rem; /* Margem inferior */
 }
 
+/* Estilo para o rótulo (label) de cada opção de rádio */
 .radio-label {
-    display: block;
-    background-color: var(--card-background); 
-    border: 2px solid var(--border-color);
-    border-radius: 10px; 
-    padding: 1rem; 
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px var(--shadow-light); 
+    display: block; /* Ocupa a largura total disponível */
+    background-color: var(--card-background); /* Cor de fundo */
+    border: 2px solid var(--border-color); /* Borda */
+    border-radius: 10px; /* Borda arredondada */
+    padding: 1rem; /* Preenchimento interno */
+    cursor: pointer; /* Altera o cursor para indicar clicável */
+    transition: all 0.3s ease; /* Transição suave para todas as propriedades */
+    box-shadow: 0 2px 8px var(--shadow-light); /* Sombra leve */
 }
 
+/* Oculta o input de rádio padrão */
 .radio-label input {
     display: none;
 }
 
+/* Estilo quando uma opção de rádio é selecionada */
 .radio-label input:checked + span,
 .radio-label:has(input:checked) {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: white;
-    box-shadow: 0 4px 10px rgba(106, 5, 114, 0.2); 
+    background-color: var(--primary-color); /* Altera a cor de fundo */
+    border-color: var(--primary-color); /* Altera a cor da borda */
+    color: white; /* Altera a cor do texto */
+    box-shadow: 0 4px 10px rgba(106, 5, 114, 0.2); /* Sombra para destaque */
 }
 
+/* Estilo para o botão de submissão do quiz */
 button[type="submit"] {
-    display: block;
-    margin: 2rem auto;
-    padding: 1.1rem 2.2rem; 
-    border: none;
-    border-radius: 10px; 
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 1.15rem; 
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 6px 15px rgba(106, 5, 114, 0.25); 
-    letter-spacing: 0.5px;
+    display: block; /* Ocupa a largura total e permite centralização com margin auto */
+    margin: 2rem auto; /* Centraliza horizontalmente e adiciona margem superior/inferior */
+    padding: 1.1rem 2.2rem; /* Preenchimento interno */
+    border: none; /* Remove a borda padrão */
+    border-radius: 10px; /* Borda arredondada */
+    background-color: var(--primary-color); /* Cor de fundo */
+    color: white; /* Cor do texto */
+    font-size: 1.15rem; /* Tamanho da fonte */
+    font-weight: 600; /* Peso da fonte */
+    cursor: pointer; /* Altera o cursor para indicar clicável */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transições suaves para hover */
+    box-shadow: 0 6px 15px rgba(106, 5, 114, 0.25); /* Sombra para o botão */
+    letter-spacing: 0.5px; /* Espaçamento entre letras */
 }
 
+/* Efeito de hover para o botão de submissão */
 button[type="submit"]:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-3px); 
-    box-shadow: 0 8px 20px var(--shadow-medium); 
+    background-color: var(--secondary-color); /* Altera a cor de fundo no hover */
+    transform: translateY(-3px); /* Move o botão ligeiramente para cima */
+    box-shadow: 0 8px 20px var(--shadow-medium); /* Aumenta a sombra no hover */
 }
 
+/* Estilo para a seção de resultados do quiz */
 .results-section {
-    margin-top: 3rem;
-    padding: 2.5rem; 
-    background: var(--card-background);
-    border-radius: 12px; 
-    box-shadow: 0 6px 20px var(--shadow-medium); 
+    margin-top: 3rem; /* Margem superior */
+    padding: 2.5rem; /* Preenchimento interno */
+    background: var(--card-background); /* Cor de fundo do card */
+    border-radius: 12px; /* Borda arredondada */
+    box-shadow: 0 6px 20px var(--shadow-medium); /* Sombra média */
 }
 
+/* Estilo para o tipo de resultado (ex: "Seu estilo é Visual") */
 .result-type {
-    margin-top: 1.5rem;
-    padding: 1.5rem; 
-    border-left: 6px solid var(--primary-color); 
-    background-color: #f9f9f9;
-    border-radius: 10px; 
-    box-shadow: 0 4px 10px var(--shadow-light); 
+    margin-top: 1.5rem; /* Margem superior */
+    padding: 1.5rem; /* Preenchimento interno */
+    border-left: 6px solid var(--primary-color); /* Borda esquerda colorida para destaque */
+    background-color: #f9f9f9; /* Cor de fundo suave */
+    border-radius: 10px; /* Borda arredondada */
+    box-shadow: 0 4px 10px var(--shadow-light); /* Sombra leve */
 }
 
+/* Estilo para o texto do resultado */
 .resultado {
-    text-align: center;
-    margin-top: 3rem; 
+    text-align: center; /* Centraliza o texto */
+    margin-top: 3rem; /* Margem superior */
 }
 
+/* Media queries para responsividade em telas menores (até 768px de largura) */
 @media (max-width: 768px) {
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem; /* Reduz o tamanho da fonte do título principal */
     }
 
     .instructions {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        padding: 1rem; /* Reduz o preenchimento das instruções */
+        margin-bottom: 1.5rem; /* Reduz a margem inferior das instruções */
     }
 
     .question-block {
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
+        padding: 1.2rem; /* Reduz o preenchimento dos blocos de pergunta */
+        margin-bottom: 1.5rem; /* Reduz a margem inferior dos blocos de pergunta */
     }
 
     .question {
-        font-size: 1rem;
-        margin-bottom: 1rem;
+        font-size: 1rem; /* Reduz o tamanho da fonte da pergunta */
+        margin-bottom: 1rem; /* Reduz a margem inferior da pergunta */
     }
 
     .radio-label {
-        padding: 0.6rem;
+        padding: 0.6rem; /* Reduz o preenchimento dos rótulos de rádio */
     }
 
     button[type="submit"] {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.8rem 1.5rem; /* Reduz o preenchimento do botão de submissão */
+        font-size: 1rem; /* Reduz o tamanho da fonte do botão de submissão */
     }
 
     .results-section {
-        padding: 1.5rem;
-        margin-top: 2rem;
+        padding: 1.5rem; /* Reduz o preenchimento da seção de resultados */
+        margin-top: 2rem; /* Reduz a margem superior da seção de resultados */
     }
 
     .result-type {
-        padding: 1rem;
-        margin-top: 1rem;
+        padding: 1rem; /* Reduz o preenchimento do tipo de resultado */
+        margin-top: 1rem; /* Reduz a margem superior do tipo de resultado */
     }
 }
