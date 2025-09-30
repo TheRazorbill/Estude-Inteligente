@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let defaultLongBreakTime = 15 * 60; // Tempo padrão de pausa longa em segundos (15 minutos)
     const originalTitle = document.title; // Título original da página para restaurar
     let isCycleEnded = false; // Flag para indicar se o ciclo Pomodoro terminou
+    let endTime; // Novo: horário de término calculado com base em Date.now()
 
     // Funções para controlar a visibilidade do modal de configurações
     function openSettingsModal() { settingsModal.classList.remove('hidden'); } // Remove a classe 'hidden' para exibir o modal
@@ -148,19 +149,27 @@ document.addEventListener('DOMContentLoaded', () => {
             timeLeft = defaultStudyTime; // Define o tempo inicial se não houver tempo restante
         }
 
-        // Inicia o contador regressivo
+        // Calcula o horário de término com base no tempo restante
+        endTime = Date.now() + timeLeft * 1000;
+
+        // Inicia o contador regressivo baseado no tempo real
         timer = setInterval(() => {
-            timeLeft--; // Decrementa o tempo restante
+            timeLeft = Math.round((endTime - Date.now()) / 1000); // Calcula o tempo restante
             updateDisplay(); // Atualiza a exibição
-            if (timeLeft < 0) {
+            if (timeLeft <= 0) {
                 handleTimerEnd(); // Lida com o fim do timer
             }
         }, 1000); // Atualiza a cada segundo (1000ms)
+
+        updateDisplay(); // Atualiza a interface imediatamente
     }
 
     // Pausa o timer
     function pauseTimer() {
         clearInterval(timer); // Para o setInterval
+        if (endTime) {
+            timeLeft = Math.round((endTime - Date.now()) / 1000); // Atualiza o tempo restante ao pausar
+        }
     }
 
     // Reinicia o timer para o estado inicial
@@ -248,7 +257,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('complete-round-btn').addEventListener('click', handleTimerEnd);
     }
 
-
     // Função para criar um elemento de tarefa na lista
     function criarElementoTarefa(tarefa) {
         const novaTarefa = document.createElement('li'); // Cria um novo item de lista
@@ -275,77 +283,80 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoRemover.textContent = 'Remover'; // Texto do botão
         botaoRemover.className = 'px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm'; // Classes Tailwind para estilo
         botaoRemover.addEventListener('click', () => {
-            listaTarefas.removeChild(novaTarefa); // Remove a tarefa da lista
-            salvarTarefas(); // Salva as tarefas após a remoção
+            listaTarefas.removeChild(novaTarefa); // Remove a tarefa
+            salvarTarefas(); // Atualiza o armazenamento após remoção
         });
 
-        divBotoes.appendChild(botaoConcluir); // Adiciona o botão de concluir à div de botões
-        divBotoes.appendChild(botaoRemover); // Adiciona o botão de remover à div de botões
-        novaTarefa.appendChild(spanTarefa); // Adiciona o texto da tarefa ao item da lista
-        novaTarefa.appendChild(divBotoes); // Adiciona a div de botões ao item da lista
-        return novaTarefa; // Retorna o elemento da nova tarefa
+        // Adiciona os botões à div e a tarefa à lista
+        divBotoes.appendChild(botaoConcluir);
+        divBotoes.appendChild(botaoRemover);
+        novaTarefa.appendChild(spanTarefa);
+        novaTarefa.appendChild(divBotoes);
+        return novaTarefa;
     }
 
-    // Função para adicionar uma nova tarefa à lista
+    // Adiciona nova tarefa à lista
     function adicionarTarefa() {
-        const textoTarefa = inputTarefa.value.trim(); // Obtém o texto do input e remove espaços em branco
-        if (textoTarefa === '') return; // Não adiciona tarefa vazia
+        const textoTarefa = inputTarefa.value.trim(); // Pega o valor do input
+        if (textoTarefa === '') return; // Ignora se estiver vazio
 
-        const tarefa = { texto: textoTarefa, concluida: false }; // Cria um objeto tarefa
-        const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento HTML da tarefa
-        listaTarefas.appendChild(elementoTarefa); // Adiciona a tarefa à lista no DOM
-        inputTarefa.value = ''; // Limpa o input
-        inputTarefa.focus(); // Foca no input para adicionar outra tarefa
-        salvarTarefas(); // Salva as tarefas no localStorage
+        const tarefa = { texto: textoTarefa, concluida: false }; // Cria objeto de tarefa
+        const elementoTarefa = criarElementoTarefa(tarefa); // Cria elemento visual
+        listaTarefas.appendChild(elementoTarefa); // Adiciona na lista
+
+        inputTarefa.value = ''; // Limpa input
+        inputTarefa.focus(); // Coloca foco novamente no input
+        salvarTarefas(); // Salva no localStorage
     }
 
-    // Função para salvar todas as tarefas no localStorage
+    // Salva todas as tarefas atuais no localStorage
     function salvarTarefas() {
-        const tarefas = []; // Array para armazenar as tarefas
+        const tarefas = []; // Array para armazenar tarefas
         document.querySelectorAll('#lista-tarefas li').forEach(item => {
-            const textoTarefa = item.querySelector('span').textContent; // Obtém o texto da tarefa
-            const concluida = item.querySelector('span').classList.contains('concluida'); // Verifica se a tarefa está concluída
-            tarefas.push({ texto: textoTarefa, concluida: concluida }); // Adiciona a tarefa ao array
+            const textoTarefa = item.querySelector('span').textContent; // Texto da tarefa
+            const concluida = item.querySelector('span').classList.contains('concluida'); // Se está concluída
+            tarefas.push({ texto: textoTarefa, concluida: concluida });
         });
-        localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Salva o array de tarefas como string JSON no localStorage
+        localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Salva em formato JSON
     }
 
-    // Função para carregar tarefas do localStorage e exibi-las
+    // Carrega as tarefas salvas do localStorage
     function carregarTarefas() {
-        const tarefasSalvas = localStorage.getItem('tarefas'); // Obtém as tarefas salvas do localStorage
-        if (!tarefasSalvas) return; // Se não houver tarefas salvas, não faz nada
-
-        const tarefas = JSON.parse(tarefasSalvas); // Converte a string JSON de volta para um array de objetos
+        const tarefasSalvas = localStorage.getItem('tarefas'); // Recupera do localStorage
+        if (!tarefasSalvas) return; // Se não houver nada, sai
+        const tarefas = JSON.parse(tarefasSalvas); // Converte para array
         tarefas.forEach(tarefa => {
-            const elementoTarefa = criarElementoTarefa(tarefa); // Cria o elemento HTML para cada tarefa
-            listaTarefas.appendChild(elementoTarefa); // Adiciona a tarefa à lista no DOM
+            const elementoTarefa = criarElementoTarefa(tarefa); // Cria elemento visual
+            listaTarefas.appendChild(elementoTarefa); // Adiciona na lista
         });
     }
 
-    // Adiciona event listeners para os botões e o modal de configurações
-    settingsBtn.addEventListener('click', openSettingsModal); // Abre o modal ao clicar no botão de configurações
-    closeSettingsBtn.addEventListener('click', closeSettingsModal); // Fecha o modal ao clicar no botão de fechar
-    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); }); // Fecha o modal ao clicar fora dele
+    // --- Event Listeners ---
 
-    // Adiciona event listeners para os botões de controle do timer
-    document.getElementById('start-btn').addEventListener('click', startTimer); // Inicia o timer
-    document.getElementById('pause-btn').addEventListener('click', pauseTimer); // Pausa o timer
-    document.getElementById('reset-btn').addEventListener('click', resetTimer); // Reinicia o timer
-    document.getElementById('complete-round-btn').addEventListener('click', handleTimerEnd); // Conclui a rodada atual
+    // Modal de configurações
+    settingsBtn.addEventListener('click', openSettingsModal);
+    closeSettingsBtn.addEventListener('click', closeSettingsModal);
+    settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); });
 
-    // Adiciona event listener para o botão de salvar configurações
+    // Botões do Pomodoro
+    document.getElementById('start-btn').addEventListener('click', startTimer);
+    document.getElementById('pause-btn').addEventListener('click', pauseTimer);
+    document.getElementById('reset-btn').addEventListener('click', resetTimer);
+    document.getElementById('complete-round-btn').addEventListener('click', handleTimerEnd);
+
+    // Salvar configurações
     saveTimeSettingsBtn.addEventListener('click', () => {
-        saveSettings(); // Salva as configurações
-        resetTimer(); // Reinicia o timer para aplicar as novas configurações
-        closeSettingsModal(); // Fecha o modal de configurações
+        saveSettings(); // Salva no localStorage
+        resetTimer(); // Reinicia timer com novas configs
+        closeSettingsModal(); // Fecha modal
     });
 
-    // Adiciona event listeners para a lista de tarefas
-    botaoAdicionar.addEventListener('click', adicionarTarefa); // Adiciona tarefa ao clicar no botão
-    inputTarefa.addEventListener('keypress', e => { if (e.key === 'Enter') adicionarTarefa(); }); // Adiciona tarefa ao pressionar Enter no input
+    // Lista de tarefas
+    botaoAdicionar.addEventListener('click', adicionarTarefa);
+    inputTarefa.addEventListener('keypress', e => { if (e.key === 'Enter') adicionarTarefa(); });
 
-    // Inicializa as configurações, carrega as tarefas e reinicia o timer ao carregar a página
-    loadSettings();
-    carregarTarefas();
-    resetTimer();
+    // Inicialização
+    loadSettings(); // Carrega configurações iniciais
+    carregarTarefas(); // Carrega tarefas salvas
+    resetTimer(); // Inicia com timer resetado
 });
