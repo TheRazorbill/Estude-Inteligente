@@ -1,0 +1,26 @@
+{
+  "name": "estude-inteligente",
+  "version": "1.0.0",
+  "description": "## Visão Geral do Projeto",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRazorbill/Estude-Inteligente.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheRazorbill/Estude-Inteligente/issues"
+  },
+  "homepage": "https://github.com/TheRazorbill/Estude-Inteligente#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "tsc": "^2.0.4"
+  }
+}
