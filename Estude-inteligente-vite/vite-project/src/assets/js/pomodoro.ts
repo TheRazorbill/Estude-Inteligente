@@ -7,13 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sound3 = new Audio('assets/sound/sound3.mp3'); // Som para fim de ciclo completo
 
     // Seleciona os elementos do DOM relacionados ao timer
-    
-    // const minutesDisplay = document.getElementById('minutes'); // Exibe os minutos
-    // const secondsDisplay = document.getElementById('seconds'); // Exibe os segundos
-    // const startBtn = document.getElementById('start-btn'); // Botão de iniciar
-    // const pauseBtn = document.getElementById('pause-btn'); // Botão de pausar
-    // const resetBtn = document.getElementById('reset-btn'); // Botão de reiniciar
-    // const completeRoundBtn = document.getElementById('complete-round-btn'); // Botão para concluir rodada manualmente
     const sessionTypeDisplay = document.getElementById('session-type'); // Exibe o tipo de sessão (Estudo, Pausa Curta, Pausa Longa)
     const progressIndicator = document.getElementById('progress-indicator'); // Indicador visual de progresso das rodadas
     
@@ -42,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaTarefas = document.getElementById('lista-tarefas') as HTMLInputElement; // Lista onde as tarefas são exibidas
 
     // Variáveis de estado do Pomodoro
-    let timer: number; // Variável para armazenar o ID do setInterval do timer
-    let timeLeft: number; // Tempo restante em segundos
-    let currentPhase = 'study'; // Fase atual do Pomodoro ('study', 'short-break', 'long-break')
+    let timer: ReturnType<typeof setInterval> | undefined; // Variável para armazenar o ID do setInterval do timer
+    let timeLeft: number = 0; // Tempo restante em segundos
+    let currentPhase: 'study' | 'short-break' | 'long-break' = 'study'; // Fase atual do Pomodoro
     let studySessionCount = 0; // Contador de sessões de estudo concluídas
     let totalStudySessions = 6; // Número total de sessões de estudo em um ciclo
     let longBreakInterval = 3; // Quantas sessões de estudo antes de uma pausa longa
@@ -53,41 +46,51 @@ document.addEventListener('DOMContentLoaded', () => {
     let defaultLongBreakTime = 15 * 60; // Tempo padrão de pausa longa em segundos (15 minutos)
     const originalTitle = document.title; // Título original da página para restaurar
     let isCycleEnded = false; // Flag para indicar se o ciclo Pomodoro terminou
-    let endTime: number; // Novo: horário de término calculado com base em Date.now()
+    let endTime: number = 0; // Horário de término calculado com base em Date.now()
 
     // Funções para controlar a visibilidade do modal de configurações
     function openSettingsModal() { if (settingsModal) settingsModal.classList.remove('hidden'); } // Remove a classe 'hidden' para exibir o modal
     function closeSettingsModal() { if (settingsModal) settingsModal.classList.add('hidden'); } // Adiciona a classe 'hidden' para ocultar o modal
 
     // Carrega as configurações salvas no localStorage ou usa valores padrão
-    function loadSettings() {
-        defaultStudyTime = parseInt(localStorage.getItem('studyTime') || '25') * 60; // Tempo de estudo
-        defaultShortBreakTime = parseInt(localStorage.getItem('shortBreakTime') || '5') * 60; // Tempo de pausa curta
-        defaultLongBreakTime = parseInt(localStorage.getItem('longBreakTime') || '15') * 60; // Tempo de pausa longa
-        longBreakInterval = parseInt(localStorage.getItem('longBreakInterval') || '3'); // Intervalo para pausa longa
-        totalStudySessions = parseInt(localStorage.getItem('totalSessions') || '6'); // Total de sessões
+    function loadSettings(): void {
+        try {
+            defaultStudyTime = parseInt(localStorage.getItem('studyTime') || '25') * 60; // Tempo de estudo
+            defaultShortBreakTime = parseInt(localStorage.getItem('shortBreakTime') || '5') * 60; // Tempo de pausa curta
+            defaultLongBreakTime = parseInt(localStorage.getItem('longBreakTime') || '15') * 60; // Tempo de pausa longa
+            longBreakInterval = parseInt(localStorage.getItem('longBreakInterval') || '3'); // Intervalo para pausa longa
+            totalStudySessions = parseInt(localStorage.getItem('totalSessions') || '6'); // Total de sessões
 
-        // Atualiza os inputs do modal com os valores carregados
-        if (studyTimeInput) studyTimeInput.value = (defaultStudyTime / 60).toString();
-        if (shortBreakTimeInput) shortBreakTimeInput.value = (defaultShortBreakTime / 60).toString();
-        if (longBreakTimeInput) longBreakTimeInput.value = (defaultLongBreakTime / 60).toString();
-        if (longBreakIntervalInput) longBreakIntervalInput.value = (longBreakInterval).toString();
-        if (totalSessionsInput) totalSessionsInput.value = (totalStudySessions).toString();
+            // Atualiza os inputs do modal com os valores carregados
+            if (studyTimeInput) studyTimeInput.value = (defaultStudyTime / 60).toString();
+            if (shortBreakTimeInput) shortBreakTimeInput.value = (defaultShortBreakTime / 60).toString();
+            if (longBreakTimeInput) longBreakTimeInput.value = (defaultLongBreakTime / 60).toString();
+            if (longBreakIntervalInput) longBreakIntervalInput.value = (longBreakInterval).toString();
+            if (totalSessionsInput) totalSessionsInput.value = (totalStudySessions).toString();
+        } catch (error) {
+            console.error('Erro ao carregar configurações:', error);
+        }
     }
 
     // Salva as configurações atuais no localStorage
-    function saveSettings() {
-        localStorage.setItem('studyTime', studyTimeInput.value);
-        localStorage.setItem('shortBreakTime', shortBreakTimeInput.value);
-        localStorage.setItem('longBreakTime', longBreakTimeInput.value);
-        localStorage.setItem('longBreakInterval', longBreakIntervalInput.value);
-        localStorage.setItem('totalSessions', totalSessionsInput.value);
-        loadSettings(); // Recarrega as configurações para aplicar as mudanças
+    function saveSettings(): void {
+        try {
+            localStorage.setItem('studyTime', studyTimeInput.value);
+            localStorage.setItem('shortBreakTime', shortBreakTimeInput.value);
+            localStorage.setItem('longBreakTime', longBreakTimeInput.value);
+            localStorage.setItem('longBreakInterval', longBreakIntervalInput.value);
+            localStorage.setItem('totalSessions', totalSessionsInput.value);
+            loadSettings(); // Recarrega as configurações para aplicar as mudanças
+        } catch (error) {
+            console.error('Erro ao salvar configurações:', error);
+        }
     }
 
     // Renderiza o indicador visual de progresso das rodadas
-    function renderProgressIndicator() {
-        if(progressIndicator) progressIndicator.innerHTML = ''; // Limpa o indicador existente
+    function renderProgressIndicator(): void {
+        if (!progressIndicator) return;
+        
+        progressIndicator.innerHTML = ''; // Limpa o indicador existente
         for (let i = 1; i <= totalStudySessions; i++) {
             const roundElement = document.createElement('div');
             roundElement.className = 'w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600 transition-all';
@@ -98,26 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (i === studySessionCount + 1 && currentPhase === 'study') {
                 roundElement.classList.add('ring-2', 'ring-offset-2', 'dark:ring-offset-gray-800', 'ring-primary'); // Rodada atual de estudo
             }
-            if (progressIndicator) progressIndicator.appendChild(roundElement);
+            progressIndicator.appendChild(roundElement);
 
             // Adiciona um separador para indicar pausas longas
             if (i > 0 && i % longBreakInterval === 0 && i < totalStudySessions) {
                 const breakElement = document.createElement('div');
                 breakElement.className = 'w-4 h-4 rounded-sm bg-gray-400 dark:bg-gray-500';
-                if (progressIndicator) progressIndicator.appendChild(breakElement);
+                progressIndicator.appendChild(breakElement);
             }
         }
     }
     
     // Atualiza a exibição do timer e o título da página
-    function updateDisplay() {
+    function updateDisplay(): void {
         const minutes = Math.floor(timeLeft / 60); // Calcula os minutos restantes
         const seconds = timeLeft % 60; // Calcula os segundos restantes
         
         const minutesSpan = document.getElementById('minutes');
         const secondsSpan = document.getElementById('seconds');
         
-        if(minutesSpan && secondsSpan) {
+        if (minutesSpan && secondsSpan) {
             // Atualiza os elementos de exibição de minutos e segundos, formatando com zero à esquerda
             minutesSpan.textContent = String(minutes).padStart(2, '0');
             secondsSpan.textContent = String(seconds).padStart(2, '0');
@@ -129,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Retorna o nome amigável da fase atual do Pomodoro
-    function getPhaseName(phase: string) {
+    function getPhaseName(phase: 'study' | 'short-break' | 'long-break' | string): string {
         switch (phase) {
             case 'study': return 'Estudo';
             case 'short-break': return 'Pausa Curta';
@@ -139,14 +142,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Inicia ou retoma o timer
-    function startTimer() {
-        if(isCycleEnded) { // Se o ciclo anterior terminou, reinicia o timer
+    function startTimer(): void {
+        if (isCycleEnded) { // Se o ciclo anterior terminou, reinicia o timer
             resetTimer();
         }
         clearInterval(timer); // Limpa qualquer timer existente para evitar múltiplos timers
         isCycleEnded = false; // Reseta a flag de ciclo encerrado
 
-        if (timeLeft === undefined || timeLeft === null) {
+        if (timeLeft === undefined || timeLeft === null || timeLeft === 0) {
             timeLeft = defaultStudyTime; // Define o tempo inicial se não houver tempo restante
         }
 
@@ -158,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timeLeft = Math.round((endTime - Date.now()) / 1000); // Calcula o tempo restante
             updateDisplay(); // Atualiza a exibição
             if (timeLeft <= 0) {
+                clearInterval(timer);
                 handleTimerEnd(); // Lida com o fim do timer
             }
         }, 1000); // Atualiza a cada segundo (1000ms)
@@ -166,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Pausa o timer
-    function pauseTimer() {
+    function pauseTimer(): void {
         clearInterval(timer); // Para o setInterval
         if (endTime) {
             timeLeft = Math.round((endTime - Date.now()) / 1000); // Atualiza o tempo restante ao pausar
@@ -174,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Reinicia o timer para o estado inicial
-    function resetTimer() {
+    function resetTimer(): void {
         clearInterval(timer); // Para o setInterval
         currentPhase = 'study'; // Volta para a fase de estudo
         studySessionCount = 0; // Zera o contador de sessões de estudo
@@ -186,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Lida com o fim de cada período do timer (estudo, pausa curta, pausa longa)
-    function handleTimerEnd() {
+    function handleTimerEnd(): void {
         clearInterval(timer); // Para o timer atual
         const phaseEnding = currentPhase; // Armazena a fase que está terminando
 
@@ -197,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            sound1.play(); // Toca um som para indicar o fim da sessão de estudo
+            sound1.play().catch(() => console.log('Áudio bloqueado pelo navegador')); // Toca um som para indicar o fim da sessão de estudo
             // Decide se a próxima fase é pausa longa ou curta
             if (studySessionCount % longBreakInterval === 0) {
                 currentPhase = 'long-break';
@@ -208,8 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             // Toca sons diferentes para o fim da pausa longa ou curta
-            if (phaseEnding === 'long-break') sound2.play();
-            else sound1.play();
+            if (phaseEnding === 'long-break') {
+                sound2.play().catch(() => console.log('Áudio bloqueado pelo navegador'));
+            } else {
+                sound1.play().catch(() => console.log('Áudio bloqueado pelo navegador'));
+            }
             
             currentPhase = 'study'; // Volta para a fase de estudo
             timeLeft = defaultStudyTime; // Define o tempo para o padrão de estudo
@@ -220,8 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Encerra o ciclo completo do Pomodoro
-    function endCycle() {
-        sound3.play(); // Toca um som especial para o fim do ciclo
+    function endCycle(): void {
+        sound3.play().catch(() => console.log('Áudio bloqueado pelo navegador')); // Toca um som especial para o fim do ciclo
         isCycleEnded = true; // Define a flag de ciclo encerrado
         clearInterval(timer); // Para o timer
 
@@ -233,12 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Altera o botão para "Iniciar Novo Ciclo"
         const startBtnHTML = `<button id="start-btn" class="px-6 py-3 rounded-lg bg-primary text-white hover:bg-secondary transition-colors ring-2 ring-offset-2 ring-primary animate-pulse">Iniciar Novo Ciclo</button>`;
         if (buttonsArea) buttonsArea.innerHTML = startBtnHTML;
-        const newStart =  document.getElementById('start-btn')
+        const newStart = document.getElementById('start-btn');
         if (newStart) newStart.addEventListener('click', startTimer); // Adiciona o event listener ao novo botão
     }
     
     // Restaura a interface do usuário para o estado inicial do timer
-    function restoreUI() {
+    function restoreUI(): void {
         // Restaura a exibição do timer
         if (timerDisplayArea) timerDisplayArea.innerHTML = `<span id="minutes">25</span>:<span id="seconds">00</span>`;
         if (progressIndicatorArea) progressIndicatorArea.classList.remove('hidden'); // Exibe o indicador de progresso
@@ -253,10 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         // Reatribui os event listeners aos botões restaurados
-        const newStartTimer = document.getElementById('start-btn')
-        const newPauseTimer = document.getElementById('pause-btn')
-        const newResetTimer = document.getElementById('reset-btn')
-        const newHandleTimerEnd = document.getElementById('complete-round-btn')
+        const newStartTimer = document.getElementById('start-btn');
+        const newPauseTimer = document.getElementById('pause-btn');
+        const newResetTimer = document.getElementById('reset-btn');
+        const newHandleTimerEnd = document.getElementById('complete-round-btn');
 
         if (newStartTimer) newStartTimer.addEventListener('click', startTimer);
         if (newPauseTimer) newPauseTimer.addEventListener('click', pauseTimer);
@@ -265,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Função para criar um elemento de tarefa na lista
-    function criarElementoTarefa(tarefa: {texto: string, concluida: boolean}) {
+    function criarElementoTarefa(tarefa: { texto: string; concluida: boolean }): HTMLLIElement {
         const novaTarefa = document.createElement('li'); // Cria um novo item de lista
         novaTarefa.className = 'flex items-center justify-between p-3 border-b border-gray-200 dark:border-gray-700'; // Classes Tailwind para estilo
 
@@ -301,10 +308,13 @@ document.addEventListener('DOMContentLoaded', () => {
         novaTarefa.appendChild(divBotoes);
         return novaTarefa;
     }
+        novaTarefa.appendChild(divBotoes);
+        return novaTarefa;
+    }
 
     // Adiciona nova tarefa à lista
-    function adicionarTarefa() {
-        if (!inputTarefa) return
+    function adicionarTarefa(): void {
+        if (!inputTarefa || !listaTarefas) return;
         const textoTarefa = inputTarefa.value.trim(); // Pega o valor do input
         if (textoTarefa === '') return; // Ignora se estiver vazio
 
@@ -318,27 +328,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Salva todas as tarefas atuais no localStorage
-    function salvarTarefas() {
-        const tarefas: {texto: string | null, concluida: boolean}[] = []; // Array para armazenar tarefas
-        document.querySelectorAll('#lista-tarefas li').forEach(item => {
-            const spanElement = item.querySelector('span')
-            if (!spanElement) return
-            const textoTarefa = spanElement.textContent; // Texto da tarefa
-            const concluida = spanElement.classList.contains('concluida'); // Se está concluída
-            tarefas.push({ texto: textoTarefa, concluida: concluida });
-        });
-        localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Salva em formato JSON
+    function salvarTarefas(): void {
+        try {
+            const tarefas: { texto: string | null; concluida: boolean }[] = []; // Array para armazenar tarefas
+            document.querySelectorAll('#lista-tarefas li').forEach(item => {
+                const spanElement = item.querySelector('span');
+                if (!spanElement) return;
+                const textoTarefa = spanElement.textContent; // Texto da tarefa
+                const concluida = spanElement.classList.contains('concluida'); // Se está concluída
+                tarefas.push({ texto: textoTarefa, concluida: concluida });
+            });
+            localStorage.setItem('tarefas', JSON.stringify(tarefas)); // Salva em formato JSON
+        } catch (error) {
+            console.error('Erro ao salvar tarefas:', error);
+        }
     }
 
     // Carrega as tarefas salvas do localStorage
-    function carregarTarefas() {
-        const tarefasSalvas = localStorage.getItem('tarefas'); // Recupera do localStorage
-        if (!tarefasSalvas) return; // Se não houver nada, sai
-        const tarefas = JSON.parse(tarefasSalvas); // Converte para array
-        tarefas.forEach((tarefa: {texto: string, concluida: boolean}) => {
-            const elementoTarefa = criarElementoTarefa(tarefa); // Cria elemento visual
-            listaTarefas.appendChild(elementoTarefa); // Adiciona na lista
-        });
+    function carregarTarefas(): void {
+        try {
+            const tarefasSalvas = localStorage.getItem('tarefas'); // Recupera do localStorage
+            if (!tarefasSalvas || !listaTarefas) return; // Se não houver nada, sai
+            const tarefas = JSON.parse(tarefasSalvas); // Converte para array
+            tarefas.forEach((tarefa: { texto: string; concluida: boolean }) => {
+                const elementoTarefa = criarElementoTarefa(tarefa); // Cria elemento visual
+                listaTarefas.appendChild(elementoTarefa); // Adiciona na lista
+            });
+        } catch (error) {
+            console.error('Erro ao carregar tarefas:', error);
+        }
     }
 
     // --- Event Listeners ---
@@ -346,10 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modal de configurações
     if (settingsBtn) settingsBtn.addEventListener('click', openSettingsModal);
     if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeSettingsModal);
-    if (settingsModal) settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettingsModal(); });
+    if (settingsModal) settingsModal.addEventListener('click', (e) => {
+        if (e.target === settingsModal) closeSettingsModal();
+    });
 
     // Botões do Pomodoro
-    const newStartTimer = document.getElementById('start-btn')
+    const newStartTimer = document.getElementById('start-btn');
     if (newStartTimer) newStartTimer.addEventListener('click', startTimer);
     const newPauseBtn = document.getElementById('pause-btn');
     if (newPauseBtn) newPauseBtn.addEventListener('click', pauseTimer);
@@ -366,8 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Lista de tarefas
-    botaoAdicionar.addEventListener('click', adicionarTarefa);
-    inputTarefa.addEventListener('keypress', e => { if (e.key === 'Enter') adicionarTarefa(); });
+    if (botaoAdicionar && inputTarefa) {
+        botaoAdicionar.addEventListener('click', adicionarTarefa);
+        inputTarefa.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') adicionarTarefa();
+        });
+    }
 
     // Inicialização
     loadSettings(); // Carrega configurações iniciais
