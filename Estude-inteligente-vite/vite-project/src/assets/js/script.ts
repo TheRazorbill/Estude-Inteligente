@@ -1,16 +1,18 @@
 // Garante que o script só será executado após o carregamento completo do DOM
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', (): void => {
     // Inicializa os ícones Feather Icons, substituindo os elementos <i> por SVGs
+    // @ts-ignore - feather.replace() é do Feather Icons library
     feather.replace();
 
     // Inicializa a biblioteca AOS (Animate On Scroll) para animações
+    // @ts-ignore - AOS é do Animate On Scroll library
     AOS.init({
         duration: 800, // Duração da animação em milissegundos
         once: true, // As animações ocorrem apenas uma vez ao rolar para o elemento
     });
 
     // Lógica para aplicar o tema escuro/claro ao carregar a página
-    const themeToggle = document.getElementById('theme-toggle'); // Botão de alternância de tema
+    const themeToggle = document.getElementById('theme-toggle') as HTMLButtonElement | null; // Botão de alternância de tema
     // Verifica se o tema 'dark' está salvo no localStorage ou se o sistema operacional prefere o tema escuro
     if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark'); // Adiciona a classe 'dark' ao elemento <html>
@@ -18,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Adiciona event listener ao botão de alternância de tema
     if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
+        themeToggle.addEventListener('click', (): void => {
             document.documentElement.classList.toggle('dark'); // Alterna a classe 'dark' no elemento <html>
             // Salva a preferência de tema no localStorage
             localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
@@ -26,22 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Lógica para o menu mobile
-    const mobileMenuButton = document.getElementById('mobile-menu-button'); // Botão do menu mobile
-    const mobileMenu = document.getElementById('mobile-menu'); // O menu mobile em si
+    const mobileMenuButton = document.getElementById('mobile-menu-button') as HTMLButtonElement | null; // Botão do menu mobile
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLDivElement | null; // O menu mobile em si
     if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
+        mobileMenuButton.addEventListener('click', (): void => {
             mobileMenu.classList.toggle('hidden'); // Alterna a visibilidade do menu mobile
         });
     }
 
     // Elementos do DOM relacionados à pesquisa de livros
-    const searchInput = document.getElementById('book-search-input'); // Campo de input para a pesquisa
-    const searchButton = document.getElementById('book-search-button'); // Botão de busca
-    const searchResults = document.getElementById('book-search-results'); // Área onde os resultados serão exibidos
+    const searchInput = document.getElementById('book-search-input') as HTMLInputElement | null; // Campo de input para a pesquisa
+    const searchButton = document.getElementById('book-search-button') as HTMLButtonElement | null; // Botão de busca
+    const searchResults = document.getElementById('book-search-results') as HTMLDivElement | null; // Área onde os resultados serão exibidos
 
     // Adiciona event listener ao botão de busca de livros
     if (searchButton && searchInput && searchResults) {
-        searchButton.addEventListener('click', () => {
+        searchButton.addEventListener('click', (): void => {
             const query = searchInput.value.trim(); // Obtém o valor do input e remove espaços em branco
             if (query) {
                 fetchBooks(query); // Chama a função para buscar livros se a query não estiver vazia
@@ -49,22 +51,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Interface para tipagem de livros da API
+    interface Book {
+        title?: string;
+        author_name?: string[];
+        cover_i?: number;
+        first_publish_year?: number;
+    }
+
+    // Interface para resposta da API
+    interface BooksResponse {
+        docs: Book[];
+    }
+
     // Função assíncrona para buscar livros na Open Library API
-    async function fetchBooks(query) {
+    async function fetchBooks(query: string): Promise<void> {
+        if (!searchResults) return;
+        
         searchResults.innerHTML = '<p class="text-center text-text-light">Carregando...</p>'; // Exibe mensagem de carregamento
         try {
             // Faz a requisição à API da Open Library
             const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}`);
-            const data = await response.json(); // Converte a resposta para JSON
+            
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+
+            const data = (await response.json()) as BooksResponse; // Converte a resposta para JSON
             displayBooks(data.docs); // Chama a função para exibir os livros
         } catch (error) {
             console.error('Erro ao buscar livros:', error); // Loga o erro no console
-            searchResults.innerHTML = '<p class="text-center text-red-500">Erro ao carregar livros. Tente novamente mais tarde.</p>'; // Exibe mensagem de erro
+            if (searchResults) {
+                searchResults.innerHTML = '<p class="text-center text-red-500">Erro ao carregar livros. Tente novamente mais tarde.</p>'; // Exibe mensagem de erro
+            }
         }
     }
 
     // Função para exibir os livros na interface
-    function displayBooks(books) {
+    function displayBooks(books: Book[]): void {
+        if (!searchResults) return;
+        
         searchResults.innerHTML = ''; // Limpa os resultados anteriores
         if (books.length === 0) {
             searchResults.innerHTML = '<p class="text-center text-text-light">Nenhum livro encontrado.</p>'; // Mensagem se nenhum livro for encontrado
@@ -76,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.className = 'grid md:grid-cols-2 lg:grid-cols-3 gap-8'; // Classes Tailwind para o grid
 
         // Limita a exibição a 12 livros e itera sobre eles
-        books.slice(0, 12).forEach(book => {
+        books.slice(0, 12).forEach((book: Book): void => {
             const title = book.title || 'Título Desconhecido'; // Obtém o título do livro ou um valor padrão
             const author = book.author_name ? book.author_name.join(', ') : 'Autor Desconhecido'; // Obtém o(s) autor(es)
             const coverId = book.cover_i; // ID da capa do livro
