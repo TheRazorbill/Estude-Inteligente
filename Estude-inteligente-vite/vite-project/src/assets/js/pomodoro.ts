@@ -398,3 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarTarefas(); // Carrega tarefas salvas
     resetTimer(); // Inicia com timer resetado
 });
+
+// Documentação adicional:
+// Este arquivo gerencia o timer Pomodoro com suporte a múltiplas fases
+// Inclui configurações customizáveis e persistência de dados no localStorage
