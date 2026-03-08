@@ -81,6 +81,7 @@ Para visualizar e interagir com o projeto:
 -   HTML5
 -   CSS3
 -   JavaScript
+-   TypeScript
 -   Open Library API
 
 
